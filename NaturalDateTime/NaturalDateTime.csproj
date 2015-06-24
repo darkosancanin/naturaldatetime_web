@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4D26B4FE-63F1-48B9-B7B7-BDCE753AAF5C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>NaturalDateTime</RootNamespace>
+    <AssemblyName>NaturalDateTime</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Lucene.Net, Version=3.0.3.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.3.0.3\lib\NET40\Lucene.Net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NodaTime, Version=1.3.0.0, Culture=neutral, PublicKeyToken=4226afe0d9b296d1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NodaTime.1.3.1\lib\net35-Client\NodaTime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data.SQLite">
+      <HintPath>..\lib\sqlite_mac\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Resolvers\CountryCodeLookup.cs" />
+    <Compile Include="QuestionProcessors\IQuestionProcessor.cs" />
+    <Compile Include="QuestionProcessors\QuestionProcessorResolver.cs" />
+    <Compile Include="QuestionProcessors\WhatTimeInCityQuestionProcessor.cs" />
+    <Compile Include="Tokenizers\CityTokenizer.cs" />
+    <Compile Include="Tokenizers\DateTokenizer.cs" />
+    <Compile Include="Tokenizers\DaylightSavingsTokenizer.cs" />
+    <Compile Include="Tokenizers\ITokenizer.cs" />
+    <Compile Include="Tokenizers\TimeTokenizer.cs" />
+    <Compile Include="Tokens\CityToken.cs" />
+    <Compile Include="Tokens\DateToken.cs" />
+    <Compile Include="Tokens\TimeToken.cs" />
+    <Compile Include="Tokens\Token.cs" />
+    <Compile Include="ApplicationSettings.cs" />
+    <Compile Include="Resolvers\CityResolver.cs" />
+    <Compile Include="Resolvers\CityResolverResult.cs" />
+    <Compile Include="Managers\DateTimeManager.cs" />
+    <Compile Include="ErrorMessages.cs" />
+    <Compile Include="Extensions\LocalDateTime.cs" />
+    <Compile Include="QuestionProcessors\WhenDaylightSavingsStartStopInCityProcessor.cs" />
+    <Compile Include="Domain\Answer.cs" />
+    <Compile Include="Domain\City.cs" />
+    <Compile Include="Domain\ConvertedZonedDateTimeResult.cs" />
+    <Compile Include="Domain\DaylightSavingInfo.cs" />
+    <Compile Include="Domain\Meridiem.cs" />
+    <Compile Include="Domain\Question.cs" />
+    <Compile Include="Domain\UnambiguousZonedDateTimeResult.cs" />
+    <Compile Include="Domain\LocalDateTimeResult.cs" />
+    <Compile Include="Extensions\String.cs" />
+    <Compile Include="Tokens\DaylightSavingsToken.cs" />
+    <Compile Include="Tokens\LiteralDateOrTimeToken.cs" />
+    <Compile Include="Tokenizers\LiteralDateOrTimeTokenizer.cs" />
+    <Compile Include="Tokenizers\TimeUnitTokenizer.cs" />
+    <Compile Include="Tokens\TimeUnitToken.cs" />
+    <Compile Include="Tokenizers\Tokenizers.cs" />
+    <Compile Include="QuestionProcessors\QuestionProcessorBase.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+</Project>

@@ -1,0 +1,24 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="NaturalDateTime.Web/Views/Question/Index.aspx">
+    <Files>
+      <File FileName="NaturalDateTime.Web/Views/Question/Index.aspx" Line="13" Column="55" />
+      <File FileName="NaturalDateTime.Web/Models/QuestionModel.cs" Line="63" Column="4" />
+      <File FileName="NaturalDateTime.Web/Services/AnswerService.cs" Line="33" Column="163" />
+      <File FileName="NaturalDateTime/Managers/AnswerLogManager.cs" Line="102" Column="51" />
+      <File FileName="NaturalDateTime.Web/Views/Administration/AnswerLogs.aspx" Line="18" Column="105" />
+      <File FileName="NaturalDateTime.Web/Controllers/AdministrationController.cs" Line="85" Column="1" />
+      <File FileName="NaturalDateTime/Domain/AnswerLogEntry.cs" Line="43" Column="26" />
+      <File FileName="NaturalDateTime.Web/Scripts/NDTAnswerLogs.js" Line="21" Column="30" />
+      <File FileName="NaturalDateTime.Web/Global.asax.cs" Line="23" Column="117" />
+      <File FileName="NaturalDateTime.Web/Content/NDTAdministration.css" Line="6" Column="19" />
+      <File FileName="NaturalDateTime.Web/Views/Shared/Administration.Master" Line="1" Column="1" />
+      <File FileName="NaturalDateTime.Web/Views/Shared/Site.Master" Line="34" Column="19" />
+      <File FileName="NaturalDateTime.Web/Content/NDT.css" Line="172" Column="2" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

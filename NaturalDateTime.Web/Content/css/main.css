@@ -1,0 +1,32 @@
+﻿#logo{
+    padding-bottom:15px;
+}
+
+#answer-text{
+    margin-top:30px;
+    font-size: 18px;
+}
+
+#loading{
+    margin-top:30px;
+}
+
+#note{
+    margin-top:30px;
+}
+
+#note-alert{
+    padding-right:10px;
+}
+
+#debug-information{
+    margin-top:20px;
+}
+
+#debug-information-heading{
+    font-weight:bold;
+}
+
+.debug-information-detail-heading{
+    font-style:italic;
+}

@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net452": {
+      "wrappedProject": "../../NaturalDateTime.csproj",
+      "bin": {
+        "assembly": "../../obj/{configuration}/NaturalDateTime.dll",
+        "pdb": "../../obj/{configuration}/NaturalDateTime.pdb"
+      },
+      "dependencies": {
+        "Lucene.Net": "3.0.3",
+        "SharpZipLib": "0.86.0",
+        "ICSharpCode.SharpZipLib": "1.0.0-*",
+        "NodaTime": "1.0.0-*",
+        "System.Data.SQLite": "1.0.0-*"
+      }
+    }
+  }
+}

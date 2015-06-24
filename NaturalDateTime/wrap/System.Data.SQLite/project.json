@@ -1,0 +1,10 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net452": {
+      "bin": {
+        "assembly": "../../../lib/sqlite_mac/System.Data.SQLite.dll"
+      }
+    }
+  }
+}

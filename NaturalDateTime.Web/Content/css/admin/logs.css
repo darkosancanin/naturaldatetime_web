@@ -1,0 +1,14 @@
+﻿.grid {
+  height:600px;
+  margin-left:20px;
+  margin-right:20px;
+}
+
+.questionLogDetailsHeading{
+    font-weight:bold;
+}
+
+.questionLogDetails{
+    display:block;
+    padding-bottom:10px;
+}

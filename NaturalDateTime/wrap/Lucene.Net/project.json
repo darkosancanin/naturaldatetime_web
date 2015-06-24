@@ -1,0 +1,11 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net452": {
+      "bin": {
+        "assembly": "../../../packages/Lucene.Net.3.0.3/lib/NET40/Lucene.Net.dll",
+        "pdb": "../../../packages/Lucene.Net.3.0.3/lib/NET40/Lucene.Net.pdb"
+      }
+    }
+  }
+}

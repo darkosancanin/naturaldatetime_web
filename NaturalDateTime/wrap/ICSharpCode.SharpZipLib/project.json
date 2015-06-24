@@ -1,0 +1,10 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net452": {
+      "bin": {
+        "assembly": "../../../packages/SharpZipLib.0.86.0/lib/20/ICSharpCode.SharpZipLib.dll"
+      }
+    }
+  }
+}

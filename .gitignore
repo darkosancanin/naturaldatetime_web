@@ -1,0 +1,7 @@
+*/bin
+*/obj
+*/.suo
+*/.DS_Store
+NaturalDateTime.Web/App_Data/*
+NaturalDateTime.Web/Properties/PublishProfiles/*
+NaturalDateTime.Web/Web.Release.config

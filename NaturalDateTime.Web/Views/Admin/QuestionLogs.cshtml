@@ -1,0 +1,38 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section css {
+    <link href="~/Content/css/admin/logs.css" rel="stylesheet" />
+    <link href="~/Content/css/admin/ui-grid-unstable.min.css" rel="stylesheet" />
+}
+
+<div ng-app="naturalDateTime.admin" ng-controller="questionLogsController">
+    <div ui-grid="gridOptions" ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize ui-grid-pagination class="grid"></div>
+
+    <script type="text/ng-template" id="questionLogDetails.html">
+        <div class="modal-header">
+            <h4> </h4>
+        </div>
+        <div class="modal-body">
+            <span class="questionLogDetailsHeading">Sydney Time </span><span class="questionLogDetails">{{questionLog.SydneyTime}}</span>
+            <span class="questionLogDetailsHeading">Question </span><span class="questionLogDetails">{{questionLog.Question}}</span>
+            <span class="questionLogDetailsHeading">Answer </span><span class="questionLogDetails">{{questionLog.AnswerText}}</span>
+            <span class="questionLogDetailsHeading">Note </span><span class="questionLogDetails">{{questionLog.Note}}</span>
+            <span class="questionLogDetailsHeading">Answered Question </span><span class="questionLogDetails">{{questionLog.AnsweredQuestion}}</span>
+            <span class="questionLogDetailsHeading">Understood Question </span><span class="questionLogDetails">{{questionLog.UnderstoodQuestion}}</span>
+            <span class="questionLogDetailsHeading">Client </span><span class="questionLogDetails">{{questionLog.Client}} {{questionLog.Version}}</span>
+            <span class="questionLogDetailsHeading">Is A Bot </span><span class="questionLogDetails">{{questionLog.IsBot}}</span>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary btnCustom" ng-click="ok()">OK</button>
+        </div>
+    </script>
+</div>
+
+@section scripts {
+    <script src="~/Scripts/app/admin/ui-grid-unstable.min.js"></script>
+    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.0.js"></script>
+    <script src="~/Scripts/app/admin/questionLogsController.js"></script>
+}
+

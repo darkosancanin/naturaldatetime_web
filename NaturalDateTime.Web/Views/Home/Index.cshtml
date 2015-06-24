@@ -1,0 +1,11 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container body-content" ng-app="naturalDateTime">
+    <div ng-view></div>
+</div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/NaturalDateTime/js")
+}

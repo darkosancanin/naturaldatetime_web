@@ -1,0 +1,9 @@
+﻿html, body {
+	background: #f4f4f4;
+	color: #666;
+	font-family: Georgia, Times, 'Times New Roman', serif;
+}
+
+.navbar-text {
+    float: none;
+}
