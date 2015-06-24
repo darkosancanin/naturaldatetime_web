@@ -3,7 +3,7 @@ Natural Date and Time is a natural language date and time zone engine which allo
 
 Natural Date and Time was written as a hobby project as I was interested in learning more about natural language processing, I am also a big sports fan and was constantly converting between US time and Sydney time to find out when my favourite teams were playing and I was sick of using clunky drop-down list driven time conversion websites so I wrote this application. 
 
-The site is up at http://www.naturaldateandtime.com
+I wrote the application back in 2012, but just recently updated the web site and deployed it again to AWS. The site is accessible at http://www.naturaldateandtime.com
 
 ## Screenshot
 ![Natural Date and Time](https://raw.githubusercontent.com/darkosancanin/naturaldatetime_web/master/images/screenshot.png)
