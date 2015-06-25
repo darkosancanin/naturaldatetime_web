@@ -10,6 +10,7 @@ namespace NaturalDateTime.Web.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.Title = "About - Natural Date and Time";
             return View();
         }
     }

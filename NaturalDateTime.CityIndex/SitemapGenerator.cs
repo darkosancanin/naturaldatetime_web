@@ -11,27 +11,30 @@ using Lucene.Net.Search;
 using Lucene.Net.Store;
 using Lucene.Net.Util;
 using Lucene.Net.QueryParsers;
+using System.Collections;
 
 namespace NaturalDateTime.CityIndex
 {
-	public class SitemapGenerator
-	{
-		private SiteMapQuestion[] _siteMapQuestions = new [] { 
-			new SiteMapQuestion("sitemap_time_in_city{0}.xml", "Time_in_"),
-			new SiteMapQuestion("sitemap_what_is_the_time_in_city{0}.xml", "What_is_the_time_in_"),
-			new SiteMapQuestion("sitemap_current_time_in_city{0}.xml", "Current_time_in_"),
-			new SiteMapQuestion("sitemap_daylight_saving_time_in_city{0}.xml", "Daylight_saving_time_in_"),
-			new SiteMapQuestion("sitemap_when_does_daylight_saving_time_begin_in_city{0}.xml", "When_does_daylight_saving_time_start_in_"),
-			new SiteMapQuestion("sitemap_when_does_daylight_saving_time_end_in_city{0}.xml", "When_does_daylight_saving_time_end_in_") 
-		};
-		
-		private Lucene.Net.Store.Directory IndexDirectory{
-			get { return FSDirectory.Open(ApplicationSettings.CityIndexDirectory); }
-		}
-		
-		private string GetSitemapFullPath(string filename){
-			return Path.Combine(Path.Combine(ApplicationSettings.CityIndexDirectory.FullName, "Sitemaps"), filename);
-		}
+    public class SitemapGenerator
+    {
+        private SiteMapQuestion[] _siteMapQuestions = new[] {
+            new SiteMapQuestion("sitemap_time_in_city{0}.xml", "Time_in_"),
+            new SiteMapQuestion("sitemap_what_is_the_time_in_city{0}.xml", "What_is_the_time_in_"),
+            new SiteMapQuestion("sitemap_current_time_in_city{0}.xml", "Current_time_in_"),
+            new SiteMapQuestion("sitemap_daylight_saving_time_in_city{0}.xml", "Daylight_saving_time_in_"),
+            new SiteMapQuestion("sitemap_when_does_daylight_saving_time_begin_in_city{0}.xml", "When_does_daylight_saving_time_start_in_"),
+            new SiteMapQuestion("sitemap_when_does_daylight_saving_time_end_in_city{0}.xml", "When_does_daylight_saving_time_end_in_")
+        };
+
+        private Lucene.Net.Store.Directory IndexDirectory {
+            get { return FSDirectory.Open(ApplicationSettings.CityIndexDirectory); }
+        }
+
+        private string GetSitemapFullPath(string filename) {
+            return Path.Combine(Path.Combine(ApplicationSettings.CityIndexDirectory.FullName, "Sitemaps"), filename);
+        }
+
+        private IList<string> _invalidCharacters = new List<string> {"<", ">", "*", "%", "&", ":", "\\"};
 
         public void GenerateSitemaps()
         {
@@ -46,6 +49,7 @@ namespace NaturalDateTime.CityIndex
             Console.WriteLine(totalHits + " total hits.");
             var hitsToDisplay = (totalHits >= maximumRecords) ? maximumRecords : totalHits;
 			var cities = new List<City>();
+            Console.WriteLine("Creating list of cities.");
             for (int i = 0; i < hitsToDisplay; i++)
             {
                 var docId = results[i].Doc;
@@ -53,22 +57,48 @@ namespace NaturalDateTime.CityIndex
 				var city = new City(doc);
 				cities.Add(city);
             }
-			
-			int maximumRecordsPerFile = 50000;
-			var numberOfFiles = Math.Ceiling((double)hitsToDisplay/(double)maximumRecordsPerFile);
+
+            Console.WriteLine("Creating distinct list of city names.");
+            var distinctCities = GetDistinctCityNames(cities);
+            Console.WriteLine(String.Format("{0} distinct city names.", distinctCities.Count));
+
+            int maximumRecordsPerFile = 50000;
+			var numberOfFiles = Math.Ceiling((double)distinctCities.Count / (double)maximumRecordsPerFile);
 			
 			foreach(var siteMapQuestion in _siteMapQuestions){
 				for(int fileNumber = 1; fileNumber <= numberOfFiles; fileNumber++){
-					var batchOfCities = cities.Skip(maximumRecordsPerFile * (fileNumber - 1)).Take(maximumRecordsPerFile).ToList();
-					WriteSitemap(String.Format(siteMapQuestion.FileNameFormat, fileNumber), siteMapQuestion.QuestionPortionOfUrl, batchOfCities);
+					var batchOfCities = distinctCities.Skip(maximumRecordsPerFile * (fileNumber - 1)).Take(maximumRecordsPerFile).ToList();
+                    var filename = String.Format(siteMapQuestion.FileNameFormat, fileNumber);
+                    Console.WriteLine(String.Format("Creating file: {0}", filename));
+                    WriteSitemap(filename, siteMapQuestion.QuestionPortionOfUrl, batchOfCities);
 				}
 			}
 
 			WriteSitemapIndex(numberOfFiles);
 			Console.WriteLine("Finished generating sitemaps.");
         }
-		
-		private void WriteSitemap(string filename, string questionPortionOfUrl, List<City> cities){
+
+        private List<City> GetDistinctCityNames(List<City> cities)
+        {
+            var distinctCities = new List<City>();
+            var last50CityNames = new List<string>();
+            foreach (var city in cities)
+            {
+                var cityName = city.GetSitemapCityName();
+                if (!last50CityNames.Contains(cityName) && !_invalidCharacters.Any(c => cityName.Contains(c)))
+                {
+                    last50CityNames.Add(cityName);
+                    distinctCities.Add(city);
+                }
+
+                if (last50CityNames.Count > 50)
+                    last50CityNames.RemoveAt(0);
+            }
+
+            return distinctCities;
+        }
+
+        private void WriteSitemap(string filename, string questionPortionOfUrl, List<City> cities){
 			var filePath = GetSitemapFullPath(filename);
 			XmlTextWriter writer = new XmlTextWriter(filePath, Encoding.UTF8);
 	        writer.Formatting = Formatting.Indented;
@@ -77,9 +107,8 @@ namespace NaturalDateTime.CityIndex
 	        writer.WriteAttributeString("xmlns", "http://www.sitemaps.org/schemas/sitemap/0.9");
 	        foreach (var city in cities)
 	        {
-	            writer.WriteStartElement("url");
-				var cityName = GetUrlEncodedCityName(city);
-				writer.WriteElementString("loc", String.Format("http://www.naturaldateandtime.com/q/{0}{1}", questionPortionOfUrl, cityName));
+                writer.WriteStartElement("url");
+				writer.WriteElementString("loc", String.Format("http://www.naturaldateandtime.com/q/{0}{1}", questionPortionOfUrl, System.Web.HttpUtility.UrlEncode(city.GetSitemapCityName().Replace(" ", "_"))));
 	            writer.WriteEndElement();
 	        }
 	        writer.WriteEndElement();
@@ -108,12 +137,6 @@ namespace NaturalDateTime.CityIndex
 	        writer.WriteEndDocument();
 	        writer.Flush();
 	        writer.Close();
-		}
-		
-		private string GetUrlEncodedCityName(City city){
-			var cityName = city.AsciiName ?? city.Name; 
-			cityName = cityName.Replace(",", "%2C").Replace("'", "%27").Replace("’", "%27").Replace(" ", "_");	
-			return cityName;
 		}
 		
 		private QueryParser GetQueryParser()

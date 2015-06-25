@@ -53,6 +53,25 @@ namespace NaturalDateTime
 			}
         }
 
+        public string GetSitemapCityName()
+        {
+            var cityName = AsciiName ?? Name;
+            cityName = cityName.Replace('’', '\'');
+            var adminDiv = string.Empty;
+            if (!string.IsNullOrEmpty(AdministrativeDivisionName)
+               && AdministrativeDivisionName != CountryName
+               && AdministrativeDivisionName != Name
+               && !cityName.Contains(AdministrativeDivisionName))
+                adminDiv = ", " + AdministrativeDivisionName;
+
+            var countryName = string.Empty;
+            if (CountryName != Name && !cityName.Contains(CountryName))
+                countryName = ", " + CountryName;
+
+            cityName += adminDiv + countryName;
+            return cityName;
+        }
+
         public string GetFormattedNameAndTimezone(string timezoneAbbreviation)
         {
 			return FormattedName + " (" + timezoneAbbreviation + ")"; 

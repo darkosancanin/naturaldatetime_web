@@ -54,6 +54,7 @@ namespace NaturalDateTime.CityIndex
                         if (!featureClass.ToLower().StartsWith("p") && !featureClass.ToLower().StartsWith("a")) continue;
                         var countryCode = fields[8];
                         if (string.IsNullOrEmpty(countryCode)) continue;
+                        if (countryCode == "XK") countryCode = "RS";
                         var countryName = CountryCodeResolver.ResolveCountryCodeToCountryName(countryCode);
                         var admin1Code = fields[10];
                         var administrativeDivisionName = string.Empty;

@@ -15,8 +15,14 @@ namespace NaturalDateTime.Web
 
             routes.MapRoute(
                 name: "Login",
-                url: "Admin",
+                url: "admin",
                 defaults: new { controller = "Admin", action = "Login" }
+            );
+
+            routes.MapRoute(
+                name: "Question",
+                url: "q/{questionText}",
+                defaults: new { controller = "Home", action = "Question" }
             );
 
             routes.MapRoute(

@@ -18,7 +18,7 @@ namespace NaturalDateTime.Web.Controllers
         {
             if(User.Identity.IsAuthenticated)
                 return RedirectToAction("QuestionLogs");
-            ViewBag.Title = "Natural Date and Time - Administration";
+            ViewBag.Title = "Administration - Natural Date and Time";
             ViewBag.ReturnUrl = returnUrl;
             return View(new LoginViewModel());
         }
@@ -55,7 +55,7 @@ namespace NaturalDateTime.Web.Controllers
         [Authorize]
         public ActionResult QuestionLogs()
         {
-            ViewBag.Title = "Natural Date and Time - Logs";
+            ViewBag.Title = "Question Logs - Natural Date and Time";
             return View();
         }
 

@@ -14,8 +14,7 @@ namespace NaturalDateTime.Web
                 "~/Content/css/main.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/NaturalDateTime/js").Include(
-                "~/Scripts/app/naturalDateTime.js",
-                "~/Scripts/app/mainController.js"));
+                "~/Scripts/app/homeController.js"));
 
             BundleTable.EnableOptimizations = true;
         }

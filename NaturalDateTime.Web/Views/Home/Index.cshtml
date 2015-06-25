@@ -1,9 +1,43 @@
-﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+﻿@model NaturalDateTime.Web.Models.ViewModels.HomeViewModel
 
-<div class="container body-content" ng-app="naturalDateTime">
-    <div ng-view></div>
+<div class="container body-content" ng-app="naturalDateTime" ng-controller="homeController" ng-init="debugInfoEnabled=@Json.Encode(Model.DebugInfoEnabled)">
+    <div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="text-center" id="logo">
+                    <a href="#/"><img src="/Content/Images/NaturalDateTime.png" border="0" width="505" height="100" alt="Natural Date and Time" class="img-responsive center-block" /></a>
+                </div>
+                <form ng-submit="askQuestion()">
+                    <div class="input-group">
+                        <input type="text" class="form-control" ng-model="question" placeholder="{{placeholder}}" ng-init="question='@HttpUtility.JavaScriptStringEncode(@Model.QuestionText)'" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" ng-click="askQuestion()">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+                <div id="loading" ng-show="loading">
+                    <img src="/Content/Images/loading.gif" border="0" width="128" height="25" alt="Loading..." class="img-responsive center-block" />
+                </div>
+                <div id="answer-text">
+                    <span ng-bind="answer" ng-init="answer='@HttpUtility.JavaScriptStringEncode(Model.AnswerText)'"></span>
+                </div>
+                <div class="alert alert-warning" ng-show="note" id="note">
+                    <span class="glyphicon glyphicon-alert" id="note-alert"> </span>
+                    <span ng-bind="note" ng-init="note='@HttpUtility.JavaScriptStringEncode(@Model.Note)'"></span>
+                </div>
+                <div id="debug-information" ng-show="debugInfoEnabled && answer">
+                    <span id="debug-information-heading">Debug Information</span>
+                    <div ng-repeat="d in debugInfo">
+                        <span class="debug-information-detail-heading" ng-bind="d.Name"></span> : <span ng-bind="d.Value"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
 </div>
 
 @section scripts {

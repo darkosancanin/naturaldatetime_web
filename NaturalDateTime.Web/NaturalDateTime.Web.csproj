@@ -170,8 +170,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\app\admin\questionLogsController.js" />
-    <Content Include="Scripts\app\naturalDateTime.js" />
-    <Content Include="Scripts\app\mainController.js" />
+    <Content Include="Scripts\app\homeController.js" />
     <Content Include="Scripts\app\admin\ui-grid-unstable.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -184,10 +183,8 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
-    <Compile Include="Controllers\QuestionLogController.cs" />
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\ExamplesController.cs" />
-    <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\QuestionApiController.cs" />
     <Compile Include="DataAccess\NaturalDateTimeContext.cs" />
@@ -202,20 +199,22 @@
     <Compile Include="Models\QuestionLogResultSet.cs" />
     <Compile Include="Models\QuestionLog.cs" />
     <Compile Include="Models\AnswerModel.cs" />
+    <Compile Include="Models\ViewModels\HomeViewModel.cs" />
     <Compile Include="Models\ViewModels\LoginViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\QuestionService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Main\Index.cshtml" />
     <Content Include="Views\Examples\Index.cshtml" />
     <Content Include="Views\About\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Admin\Login.cshtml" />
     <Content Include="Views\Admin\QuestionLogs.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
