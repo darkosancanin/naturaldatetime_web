@@ -15,17 +15,17 @@ namespace NaturalDateTime.Web.Controllers
             return View(new HomeViewModel(!String.IsNullOrEmpty(debug)));
         }
 
-        public ActionResult Question(string questionText)
+        public ActionResult Question(string q)
         {
-            questionText = HttpUtility.UrlDecode(questionText);
-            questionText = questionText.Replace("_", " ");
-            ViewBag.Title = questionText + " -  Natural Date and Time";
+            q = HttpUtility.UrlDecode(q);
+            q = q.Replace("_", " ");
+            ViewBag.Title = q + " -  Natural Date and Time";
             var userAgent = String.Empty;
             if (Request.Headers["User-Agent"] != null)
                 userAgent = Request.Headers["User-Agent"].ToString();
             var questionService = new QuestionService();
-            var answer = questionService.GetAnswer(questionText, userAgent);
-            return View("Index", new HomeViewModel(questionText, answer.AnswerText, answer.Note));
+            var answer = questionService.GetAnswer(q, userAgent);
+            return View("Index", new HomeViewModel(q, answer.AnswerText, answer.Note));
         }
     }
 }
