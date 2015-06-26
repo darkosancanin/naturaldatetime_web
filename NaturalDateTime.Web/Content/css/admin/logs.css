@@ -12,3 +12,12 @@
     display:block;
     padding-bottom:10px;
 }
+
+.grid-options{
+    margin-top:5px;
+    margin-left:25px;
+}
+
+.grid-options-heading{
+    font-weight:bold;
+}

@@ -61,11 +61,14 @@ namespace NaturalDateTime.Web.Controllers
 
         [HttpGet]
         [Authorize]
-        public ActionResult QuestionLogEntries(int page, int pageSize)
+        public ActionResult QuestionLogEntries(int page, int pageSize, bool showBotRequests)
         {
             var dbContext = new NaturalDateTimeContext();
-            var total = dbContext.QuestionLog.Count();
-            var questionLogs = dbContext.QuestionLog.OrderByDescending(x => x.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            IQueryable<QuestionLog> questionsLogQuery = dbContext.QuestionLog;
+            if(!showBotRequests)
+                questionsLogQuery = questionsLogQuery.Where(x => !x.IsBot).AsQueryable();
+            var total = questionsLogQuery.Count();
+            var questionLogs = questionsLogQuery.OrderByDescending(x => x.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
             var questionLogResultSet = new QuestionLogResultSet(total, questionLogs);
             return Json(questionLogResultSet, JsonRequestBehavior.AllowGet);
         }

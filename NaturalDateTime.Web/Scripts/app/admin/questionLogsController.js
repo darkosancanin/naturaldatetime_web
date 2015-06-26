@@ -1,6 +1,12 @@
 ﻿var app = angular.module('naturalDateTime.admin', ['ui.grid', 'ui.grid.pagination', 'ui.grid.resizeColumns', 'ui.grid.selection', 'ui.bootstrap']);
 app.controller('questionLogsController', ['$scope', '$http', 'uiGridConstants', '$modal', function ($scope, $http, uiGridConstants, $modal) {
 
+    $scope.showBotRequests = true;
+
+    $scope.onOptionsChanged = function () {
+        getQuestionLogEntries();
+    };
+
     var paginationOptions = {
         pageNumber: 1,
         pageSize: 25,
@@ -24,6 +30,7 @@ app.controller('questionLogsController', ['$scope', '$http', 'uiGridConstants', 
     $scope.gridOptions = {
         showFooter: false,
         enableSorting: false,
+        enableColumnMenus: false,
         multiSelect: false,
         enableRowSelection: true,
         enableSelectAll: false,
@@ -33,7 +40,8 @@ app.controller('questionLogsController', ['$scope', '$http', 'uiGridConstants', 
         useExternalPagination: true,
         columnDefs: [
           { name: 'SydneyTime', displayName: 'Sydney Time', width: 200 },
-          { name: 'Question' }
+          { name: 'Question' },
+          { name: 'IsBot', displayName: 'Bot', width: 50 }
         ],
         onRegisterApi: function (gridApi) {
             $scope.gridApi = gridApi;
@@ -48,7 +56,7 @@ app.controller('questionLogsController', ['$scope', '$http', 'uiGridConstants', 
     };
 
     var getQuestionLogEntries = function () {
-        var url = '/admin/questionLogEntries?page=' + paginationOptions.pageNumber + '&pageSize=' + paginationOptions.pageSize;
+        var url = '/admin/questionLogEntries?page=' + paginationOptions.pageNumber + '&pageSize=' + paginationOptions.pageSize + '&showBotRequests=' + $scope.showBotRequests;
 
         $http.get(url)
         .success(function (data) {
