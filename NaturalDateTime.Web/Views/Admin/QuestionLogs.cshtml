@@ -5,7 +5,10 @@
 
 <div ng-app="naturalDateTime.admin" ng-controller="questionLogsController">
     <div ui-grid="gridOptions" ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize ui-grid-pagination class="grid"></div>
-
+    <div class="grid-options">
+        <span class="grid-options-heading">Options: </span>
+        <label class="checkbox-inline"><input type="checkbox" ng-model="showBotRequests" ng-click="onOptionsChanged()">Show Bot Requests</label>
+    </div>
     <script type="text/ng-template" id="questionLogDetails.html">
         <div class="modal-header">
             <h4> </h4>
