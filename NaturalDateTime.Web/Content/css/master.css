@@ -4,6 +4,10 @@
 	font-family: Georgia, Times, 'Times New Roman', serif;
 }
 
+body {
+    padding-bottom: 70px;
+  }
+
 .navbar-text {
     float: none;
 }
