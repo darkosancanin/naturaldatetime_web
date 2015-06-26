@@ -22,13 +22,7 @@ namespace NaturalDateTime.Web
             routes.MapRoute(
                 name: "QuestionFromUrl",
                 url: "q/{q}",
-                defaults: new { controller = "Home", action = "Question" }
-            );
-
-            routes.MapRoute(
-                name: "QuestionFromQuerystring",
-                url: "q",
-                defaults: new { controller = "Home", action = "Question" }
+                defaults: new { controller = "Home", action = "Index" }
             );
 
             routes.MapRoute(

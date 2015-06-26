@@ -41,6 +41,8 @@ app.controller('questionLogsController', ['$scope', '$http', 'uiGridConstants', 
         columnDefs: [
           { name: 'SydneyTime', displayName: 'Sydney Time', width: 200 },
           { name: 'Question' },
+          { name: 'Client', width: 70 },
+          { name: 'Version', width: 80 },
           { name: 'IsBot', displayName: 'Bot', width: 50 }
         ],
         onRegisterApi: function (gridApi) {
