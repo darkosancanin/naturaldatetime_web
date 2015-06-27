@@ -19,8 +19,8 @@ namespace NaturalDateTime
 		public static string LookupCountryCode(string countryName)
 		{
 			if(countryName.Length == 2){
-				if(_twoLetterCountryCodeConversion.ContainsKey(countryName)) 
-					return _twoLetterCountryCodeConversion[countryName];
+				if(_twoLetterCountryCodeConversion.ContainsKey(countryName.ToLower())) 
+					return _twoLetterCountryCodeConversion[countryName.ToLower()];
 				return countryName;
 			}
 			
