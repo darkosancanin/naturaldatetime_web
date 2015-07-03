@@ -13,11 +13,14 @@ namespace NaturalDateTime.Web.Models
         public string Note { get; set; }
         public IList<DebugInformation> DebugInformation { get; set; }
 
+        public bool UnderstoodQuestion { get; set; }
+
         public AnswerModel(Answer answer)
 		{
             AnswerText = answer.AnswerText;
             Note = answer.Note;
             DebugInformation = answer.DebugInformation;
+            UnderstoodQuestion = answer.UnderstoodQuestion;
         }
     }
 }

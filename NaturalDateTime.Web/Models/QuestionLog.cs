@@ -19,7 +19,7 @@ namespace NaturalDateTime.Web.Models
 		public bool IsBot { get; set; }
 
         public QuestionLog() { }
-		public QuestionLog(Question question, Answer answer, DateTime utcTime, string client, string version, bool isBot)
+		public QuestionLog(Question question, Answer answer, DateTime utcTime, string client, string client_version, bool isBot)
 		{
 			Question = question.QuestionText;
 			AnswerText = answer.AnswerText;
@@ -30,7 +30,7 @@ namespace NaturalDateTime.Web.Models
 			IsBot = isBot;
 			Client = client;
 			string fullVersion = null;
-			if(version != null) fullVersion = version.Replace("_", ".");
+			if(client_version != null) fullVersion = client_version.Replace("_", ".");
 			Version = fullVersion;
 		}
 

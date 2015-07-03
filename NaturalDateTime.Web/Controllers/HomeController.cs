@@ -8,7 +8,7 @@ namespace NaturalDateTime.Web.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index(string q, string client, string client_version, string debug)
+        public ActionResult Index(string q, string debug)
         {
             ViewBag.Title = "Natural Date and Time";
             if (!string.IsNullOrEmpty(q))
@@ -20,7 +20,7 @@ namespace NaturalDateTime.Web.Controllers
                 if (Request.Headers["User-Agent"] != null)
                     userAgent = Request.Headers["User-Agent"].ToString();
                 var questionService = new QuestionService();
-                var answer = questionService.GetAnswer(q, userAgent, client, client_version);
+                var answer = questionService.GetAnswer(q, userAgent, ApplicationSettings.WebClientName, ApplicationSettings.WebApplicationVersion);
                 return View("Index", new HomeViewModel(q, answer.AnswerText, answer.Note));
             }
 

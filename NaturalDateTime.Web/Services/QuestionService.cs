@@ -33,17 +33,11 @@ namespace NaturalDateTime.Web.Services
             answer.AddDebugInformation("Processing Time", String.Format("{0} ms", stopWatch.ElapsedMilliseconds.ToString()));
             answer.AddDebugInformation("Tokens", answer.Question.FormatTextWithTokens());
 
-            if (string.IsNullOrEmpty(client)) client = ApplicationSettings.WebApplicationName;
-            if (string.IsNullOrEmpty(client_version)) client_version = ApplicationSettings.CurrentWebVersion;
             var questionLog = new QuestionLog(question, answer, DateTime.UtcNow, client, client_version, IsBot(userAgent));
             dbContext.QuestionLog.Add(questionLog);
             dbContext.SaveChanges();
 
             return answer;
-        }
-        public Answer GetAnswer(string questionText, string userAgent)
-        {
-            return GetAnswer(questionText, userAgent, ApplicationSettings.WebApplicationName, ApplicationSettings.CurrentWebVersion);
         }
 
         private bool IsBot(string userAgent)

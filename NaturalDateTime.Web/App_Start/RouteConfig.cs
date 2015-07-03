@@ -25,6 +25,12 @@ namespace NaturalDateTime.Web
                 defaults: new { controller = "Home", action = "Index" }
             );
 
+            //routes.MapRoute(
+            //    name: "Api",
+            //    url: "api/question",
+            //    defaults: new { controller = "Api", action = "Question" }
+            //);
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

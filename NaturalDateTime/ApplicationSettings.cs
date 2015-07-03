@@ -19,12 +19,13 @@ namespace NaturalDateTime
 			FullPathToAnswerLogDatabase = fullPathToAnswerLogDatabase;
 		}
 		
-		public static string WebApplicationName {
+		public static string WebClientName {
 			get { return "web"; }	
 		}
 		
-		public static string CurrentWebVersion {
-			get { return "1.0"; }	
+		public static string WebApplicationVersion
+        {
+			get { return "2.0"; }	
 		}
 	}
 }
