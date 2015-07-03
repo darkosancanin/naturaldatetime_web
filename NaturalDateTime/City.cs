@@ -69,7 +69,7 @@ namespace NaturalDateTime
                 countryName = ", " + CountryName;
 
             cityName += adminDiv + countryName;
-            cityName = cityName.Replace(" ", "_").Replace(".", "");
+            cityName = cityName.Replace(".", "");
             return cityName;
         }
 

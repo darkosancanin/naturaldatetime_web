@@ -34,7 +34,7 @@ namespace NaturalDateTime.CityIndex
             return Path.Combine(Path.Combine(ApplicationSettings.CityIndexDirectory.FullName, "Sitemaps"), filename);
         }
 
-        private IList<string> _invalidCharacters = new List<string> {"<", ">", "*", "%", "&", ":", "\\"};
+        private IList<string> _invalidCharacters = new List<string> {"<", ">", "*", "%", "&", ":", "\\", "/" };
 
         public void GenerateSitemaps()
         {
@@ -108,7 +108,7 @@ namespace NaturalDateTime.CityIndex
 	        foreach (var city in cities)
 	        {
                 writer.WriteStartElement("url");
-				writer.WriteElementString("loc", String.Format("http://www.naturaldateandtime.com/q/{0}{1}", questionPortionOfUrl, System.Web.HttpUtility.UrlEncode(city.GetSitemapCityName().Replace(" ", "_"))));
+				writer.WriteElementString("loc", String.Format("http://www.naturaldateandtime.com/q/{0}{1}", questionPortionOfUrl, System.Web.HttpUtility.UrlEncode(city.GetSitemapCityName())));
 	            writer.WriteEndElement();
 	        }
 	        writer.WriteEndElement();
