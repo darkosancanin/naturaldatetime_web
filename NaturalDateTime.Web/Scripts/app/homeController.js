@@ -4,7 +4,7 @@ app.controller('naturalDateTime').controller('homeController', ["$scope", "$http
     $scope.askQuestion = function () {
         $scope.name = $scope.question;
         $scope.loading = true;
-        $http.get("/api/question?client=web&client_version=2_0&q=" + encodeURIComponent($scope.question)).
+        $http.post("/api/question", { question: $scope.question, client: "web", client_version: "2.0" }).
           success(function (data, status, headers, config) {
               $scope.loading = false;
               $scope.answer = data.AnswerText;
