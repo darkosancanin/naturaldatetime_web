@@ -11,3 +11,8 @@ body {
 .navbar-text {
     float: none;
 }
+
+.clear {
+	clear:both;
+	padding-top:40px;
+}

@@ -26,12 +26,14 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="/">Home</a></li>
                     <li><a href="/examples">Examples</a></li>
+                    <li><a href="/apps">Apps</a></li>
                     <li><a href="/about">About</a></li>
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li><a href="/?debug=true">Debug Mode</a></li>
                         <li><a href="/errorlogs">Error Logs</a></li>
                         <li><a href="/admin/questionlogs">Question Logs</a></li>
+                        <li><a href="/admin/latestQuestionlogs">Latest Question Logs</a></li>
                         <li><a href="/admin/logout">Logout</a></li>
                     }
                 </ul>

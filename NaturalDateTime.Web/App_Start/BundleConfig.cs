@@ -11,6 +11,7 @@ namespace NaturalDateTime.Web
             bundles.Add(new StyleBundle("~/bundles/NaturalDateTime/css").Include(
                 "~/Content/css/master.css",
                 "~/Content/css/examples.css",
+                "~/Content/css/apps.css",
                 "~/Content/css/main.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/NaturalDateTime/js").Include(

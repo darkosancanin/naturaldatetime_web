@@ -34,7 +34,7 @@ namespace NaturalDateTime.Web.Services
             answer.AddDebugInformation("Tokens", answer.Question.FormatTextWithTokens());
 
             var questionLog = new QuestionLog(question, answer, DateTime.UtcNow, client, client_version, IsBot(userAgent));
-            dbContext.QuestionLog.Add(questionLog);
+            dbContext.AddQuestionLog(questionLog);
             dbContext.SaveChanges();
 
             return answer;

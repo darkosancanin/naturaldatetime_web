@@ -35,7 +35,7 @@ namespace NaturalDateTime.Web.Controllers
                 if (Url.IsLocalUrl(returnUrl))
                     return Redirect(returnUrl);
                 else
-                    return RedirectToAction("QuestionLogs");
+                    return RedirectToAction("LatestQuestionLogs");
             }
             else
             {
@@ -70,6 +70,33 @@ namespace NaturalDateTime.Web.Controllers
             var total = questionsLogQuery.Count();
             var questionLogs = questionsLogQuery.OrderByDescending(x => x.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
             var questionLogResultSet = new QuestionLogResultSet(total, questionLogs);
+            return Json(questionLogResultSet, JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize]
+        public ActionResult LatestQuestionLogs()
+        {
+            ViewBag.Title = "Latest Question Logs - Natural Date and Time";
+            return View();
+        }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult LatestUserQuestionLogs()
+        {
+            var dbContext = new NaturalDateTimeContext();
+            var latestUserQuestionLogs = dbContext.QuestionLogCache.LatestUserQuestionLogs.OrderByDescending(x => x.UtcTime);
+            var questionLogResultSet = new QuestionLogResultSet(NaturalDateTimeContext.MaxCacheEntries, latestUserQuestionLogs);
+            return Json(questionLogResultSet, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult LatestBotQuestionLogs()
+        {
+            var dbContext = new NaturalDateTimeContext();
+            var latestBotQuestionLogs = dbContext.QuestionLogCache.LatestBotQuestionLogs.OrderByDescending(x => x.UtcTime);
+            var questionLogResultSet = new QuestionLogResultSet(NaturalDateTimeContext.MaxCacheEntries, latestBotQuestionLogs);
             return Json(questionLogResultSet, JsonRequestBehavior.AllowGet);
         }
     }

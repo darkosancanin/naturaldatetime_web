@@ -1,16 +1,10 @@
 ﻿var app = angular.module('naturalDateTime.admin', ['ui.grid', 'ui.grid.pagination', 'ui.grid.resizeColumns', 'ui.grid.selection', 'ui.bootstrap']);
-app.controller('questionLogsController', ['$scope', '$http', 'uiGridConstants', '$modal', function ($scope, $http, uiGridConstants, $modal) {
+app.controller('latestQuestionLogsController', ['$scope', '$http', 'uiGridConstants', '$modal', function ($scope, $http, uiGridConstants, $modal) {
 
-    $scope.showBotRequests = true;
+    $scope.showBotRequests = false;
 
     $scope.onOptionsChanged = function () {
         getQuestionLogEntries();
-    };
-
-    var paginationOptions = {
-        pageNumber: 1,
-        pageSize: 25,
-        sort: null
     };
 
     $scope.myAppScopeProvider = {
@@ -35,9 +29,7 @@ app.controller('questionLogsController', ['$scope', '$http', 'uiGridConstants', 
         enableRowSelection: true,
         enableSelectAll: false,
         enableRowHeaderSelection: false,
-        paginationPageSizes: [25, 50, 75],
-        paginationPageSize: 25,
-        useExternalPagination: true,
+        useExternalPagination: false,
         columnDefs: [
           { name: 'SydneyTime', displayName: 'Sydney Time', width: 220 },
           { name: 'Question' },
@@ -45,21 +37,19 @@ app.controller('questionLogsController', ['$scope', '$http', 'uiGridConstants', 
           { name: 'Version', width: 80 },
           { name: 'IsBot', displayName: 'Bot', width: 50 }
         ],
-        onRegisterApi: function (gridApi) {
-            $scope.gridApi = gridApi;
-            gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
-                paginationOptions.pageNumber = newPage;
-                paginationOptions.pageSize = pageSize;
-                getQuestionLogEntries();
-            });
-        },
         appScopeProvider: $scope.myAppScopeProvider,
         rowTemplate: "<div ng-dblclick=\"grid.appScope.showInfo(row)\" ng-repeat=\"(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name\" class=\"ui-grid-cell\" ng-class=\"{ 'ui-grid-row-header-cell': col.isRowHeader }\" ui-grid-cell></div>"
     };
 
     var getQuestionLogEntries = function () {
-        var url = '/admin/questionLogEntries?page=' + paginationOptions.pageNumber + '&pageSize=' + paginationOptions.pageSize + '&showBotRequests=' + $scope.showBotRequests;
-
+        var url = '';
+        if ($scope.showBotRequests) {
+            url = '/admin/latestBotQuestionLogs';
+        }
+        else {
+            url = '/admin/latestUserQuestionLogs';
+        }
+            
         $http.get(url)
         .success(function (data) {
             $scope.gridOptions.totalItems = data.TotalResults;

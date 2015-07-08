@@ -157,6 +157,7 @@
   <ItemGroup>
     <Content Include="Content\css\admin\logs.css" />
     <Content Include="Content\css\admin\login.css" />
+    <Content Include="Content\css\apps.css" />
     <Content Include="Content\css\examples.css" />
     <Content Include="Content\css\master.css" />
     <Content Include="Content\css\main.css" />
@@ -165,6 +166,7 @@
     <Content Include="Content\Images\NaturalDateTime.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\app\admin\latestQuestionLogsController.js" />
     <Content Include="Scripts\app\admin\questionLogsController.js" />
     <Content Include="Scripts\app\homeController.js" />
     <Content Include="Scripts\app\admin\ui-grid-unstable.min.js" />
@@ -181,10 +183,12 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\AboutController.cs" />
+    <Compile Include="Controllers\AppsController.cs" />
     <Compile Include="Controllers\ExamplesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="DataAccess\NaturalDateTimeContext.cs" />
+    <Compile Include="DataAccess\QuestionLogCache.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -213,6 +217,8 @@
     <Content Include="Views\Error\Index.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <None Include="Properties\PublishProfiles\NaturalDateTime.Web - FileSystem - Home.pubxml" />
+    <Content Include="Views\Admin\LatestQuestionLogs.cshtml" />
+    <Content Include="Views\Apps\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
