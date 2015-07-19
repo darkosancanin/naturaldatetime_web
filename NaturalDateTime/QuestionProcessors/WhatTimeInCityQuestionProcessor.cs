@@ -104,7 +104,7 @@ namespace NaturalDateTime
 			
 			if(cityResolverResult.Status == CityResolverResultStatus.FAILED){
 				if(possibleCityNameBecauseNoTokensFound)
-					return new Answer(question, true, false, ErrorMessages.DidNotUnderstandQuestion);
+					return new Answer(question, false, false, ErrorMessages.DidNotUnderstandQuestion);
 				else
 					return new Answer(question, true, false, ErrorMessages.UnableToRecognizeCity);
 			}
