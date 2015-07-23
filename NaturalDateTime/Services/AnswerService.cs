@@ -43,6 +43,7 @@ namespace NaturalDateTime.Services
                 answer.AddDebugInformation(question.DebugInformation);
                 answer.AddDebugInformation("Processing Time", String.Format("{0} ms", stopWatch.ElapsedMilliseconds.ToString()));
                 answer.AddDebugInformation("Tokens", answer.Question.FormatTextWithTokens());
+                answer.AddDebugInformation("Token Structure", answer.Question.FormatTokenStructure());
             }
             
             return answer;
