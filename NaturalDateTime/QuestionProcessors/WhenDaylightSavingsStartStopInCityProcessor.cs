@@ -129,15 +129,13 @@ namespace NaturalDateTime
             }
             else
             {
-                var oneMillisecondBeforeZoneIntervalStarted = zonedDateTime.Zone.ResolveLocal(zonedDateTime.GetZoneInterval().IsoLocalStart.Minus(Period.FromMilliseconds(1)), Resolvers.LenientResolver).ToInstant();
-                var previousZoneInterval = zonedDateTime.Zone.GetZoneInterval(oneMillisecondBeforeZoneIntervalStarted);
+                var previousZoneInterval = zonedDateTime.GetZoneInterval().Start.Minus(Duration.FromMilliseconds(1)).InZone(zonedDateTime.Zone).GetZoneInterval();
                 daylightSavingInfo.End = previousZoneInterval.IsoLocalEnd;
                 daylightSavingInfo.EndDateSavingPutBackInMilliseconds = previousZoneInterval.Savings.Milliseconds;
                 daylightSavingInfo.HasEnded = daylightSavingInfo.End.ToDateTimeUnspecified() < zonedDateTime.LocalDateTime.ToDateTimeUnspecified();
                 if (!daylightSavingInfo.NoDaylightSavings)
                 {
-                    var oneMillisecondAfterZoneIntervalEnded = zonedDateTime.Zone.ResolveLocal(zonedDateTime.GetZoneInterval().IsoLocalEnd.Plus(Period.FromMilliseconds(1)), Resolvers.LenientResolver).ToInstant();
-                    var nextZoneInterval = zonedDateTime.Zone.GetZoneInterval(oneMillisecondAfterZoneIntervalEnded);
+                    var nextZoneInterval = zonedDateTime.GetZoneInterval().End.Plus(Duration.FromMilliseconds(1)).InZone(zonedDateTime.Zone).GetZoneInterval();
                     daylightSavingInfo.Start = nextZoneInterval.IsoLocalStart.Minus(Period.FromMilliseconds(nextZoneInterval.Savings.Milliseconds));
                     daylightSavingInfo.StartDateSavingPutForwardInMilliseconds = nextZoneInterval.Savings.Milliseconds;
                     daylightSavingInfo.HasStarted = daylightSavingInfo.Start.ToDateTimeUnspecified() < zonedDateTime.LocalDateTime.ToDateTimeUnspecified();
