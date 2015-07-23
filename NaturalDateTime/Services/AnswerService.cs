@@ -20,20 +20,20 @@ namespace NaturalDateTime.Services
             stopWatch.Start();
             var question = new Question(questionText);
             Answer answer = null;
-            var questionProcessorResolver = new QuestionProcessorResolver();
-            var questionProcessor = questionProcessorResolver.ResolveOrNull(question);
+            var questionHandlerResolver = new QuestionHandlerResolver();
+            var questionHandler = questionHandlerResolver.FindQuestionHandlerThatCanAnswerTheQuestion(question);
 
             try
             {
-                if (questionProcessor != null)
-                    answer = questionProcessor.GetAnswer(question);
+                if (questionHandler != null)
+                    answer = questionHandler.GetAnswer(question);
                 else
                     answer = new Answer(question, false, false, ErrorMessages.DidNotUnderstandQuestion);
             }
             catch(InvalidTokenValueException ex)
             {
                 var errorMessage = ErrorMessages.DidNotUnderstandQuestion;
-                var understoodQuestion = questionProcessor != null && questionProcessor.UnderstoodQuestion;      
+                var understoodQuestion = questionHandler != null && questionHandler.UnderstoodQuestion;      
                 if (understoodQuestion) errorMessage = ex.Message;
                 answer = new Answer(question, understoodQuestion, false, errorMessage);
             }

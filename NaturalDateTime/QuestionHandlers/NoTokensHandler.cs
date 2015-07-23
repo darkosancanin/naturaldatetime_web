@@ -2,7 +2,7 @@ using System;
 
 namespace NaturalDateTime
 {
-	public class NoTokenQuestionProcessor : QuestionProcessorBase, IQuestionProcessor
+	public class NoTokensHandler : QuestionHandler, IQuestionHandler
 	{
 		public bool CanAnswerQuestion(Question question)
 		{

@@ -2,7 +2,7 @@ using System;
 
 namespace NaturalDateTime
 {
-	public abstract class QuestionProcessorBase
+	public abstract class QuestionHandler
 	{
         public Type DateOrTimeToken { get { return typeof(DateOrTimeToken); } }
         public Type CityOrTimezoneToken { get { return typeof(CityOrTimezoneToken ); } }

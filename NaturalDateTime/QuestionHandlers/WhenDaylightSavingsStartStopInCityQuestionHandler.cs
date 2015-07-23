@@ -5,7 +5,7 @@ using System.Text;
 
 namespace NaturalDateTime
 {
-	public class WhenDaylightSavingInCityProcessor : QuestionProcessorBase, IQuestionProcessor
+	public class WhenDaylightSavingInCityQuestionHandler : QuestionHandler, IQuestionHandler
 	{
 		public bool CanAnswerQuestion(Question question)
 		{

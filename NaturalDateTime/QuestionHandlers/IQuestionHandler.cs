@@ -2,7 +2,7 @@ using System;
 
 namespace NaturalDateTime
 {
-	public interface IQuestionProcessor
+	public interface IQuestionHandler
 	{
 		bool CanAnswerQuestion(Question question);
 		Answer GetAnswer(Question question);

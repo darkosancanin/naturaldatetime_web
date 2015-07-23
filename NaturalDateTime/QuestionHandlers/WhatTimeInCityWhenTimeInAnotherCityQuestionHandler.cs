@@ -5,7 +5,7 @@ using System;
 
 namespace NaturalDateTime
 {
-	public class WhatTimeInCityWhenTimeInAnotherCityQuestionProcessor : QuestionProcessorBase, IQuestionProcessor
+	public class WhatTimeInCityWhenTimeInAnotherCityQuestionHandler : QuestionHandler, IQuestionHandler
 	{
 		public bool CanAnswerQuestion(Question question)
 		{

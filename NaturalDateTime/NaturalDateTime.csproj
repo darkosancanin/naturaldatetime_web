@@ -59,12 +59,12 @@
     <Compile Include="Domain\Timezones.cs" />
     <Compile Include="Exceptions\InvalidTokenValueException.cs" />
     <Compile Include="Extensions\OffsetDateTimeExtensions.cs" />
-    <Compile Include="QuestionProcessors\NoTokenQuestionProcessor.cs" />
-    <Compile Include="QuestionProcessors\WhatTimeInCityWhenTimeInAnotherCityQuestionProcessor.cs" />
+    <Compile Include="QuestionHandlers\NoTokensHandler.cs" />
+    <Compile Include="QuestionHandlers\WhatTimeInCityWhenTimeInAnotherCityQuestionHandler.cs" />
     <Compile Include="Resolvers\CountryCodeLookup.cs" />
-    <Compile Include="QuestionProcessors\IQuestionProcessor.cs" />
-    <Compile Include="QuestionProcessors\QuestionProcessorResolver.cs" />
-    <Compile Include="QuestionProcessors\WhatTimeInCityQuestionProcessor.cs" />
+    <Compile Include="QuestionHandlers\IQuestionHandler.cs" />
+    <Compile Include="QuestionHandlers\QuestionHandlerResolver.cs" />
+    <Compile Include="QuestionHandlers\WhatTimeInCityQuestionHandler.cs" />
     <Compile Include="Services\AnswerService.cs" />
     <Compile Include="Tokenizers\TimezoneTokenizer.cs" />
     <Compile Include="Tokenizers\CityTokenizer.cs" />
@@ -84,7 +84,7 @@
     <Compile Include="Resolvers\CityResolverResult.cs" />
     <Compile Include="Domain\ErrorMessages.cs" />
     <Compile Include="Extensions\LocalDateTime.cs" />
-    <Compile Include="QuestionProcessors\WhenDaylightSavingsStartStopInCityProcessor.cs" />
+    <Compile Include="QuestionHandlers\WhenDaylightSavingsStartStopInCityQuestionHandler.cs" />
     <Compile Include="Domain\Answer.cs" />
     <Compile Include="Domain\City.cs" />
     <Compile Include="Domain\DaylightSavingInfo.cs" />
@@ -96,7 +96,7 @@
     <Compile Include="Tokens\LiteralDateOrTimeToken.cs" />
     <Compile Include="Tokenizers\LiteralDateOrTimeTokenizer.cs" />
     <Compile Include="Tokenizers\Tokenizers.cs" />
-    <Compile Include="QuestionProcessors\QuestionProcessorBase.cs" />
+    <Compile Include="QuestionHandlers\QuestionHandler.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

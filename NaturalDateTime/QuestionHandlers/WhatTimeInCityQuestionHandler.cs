@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace NaturalDateTime
 {
-	public class WhatTimeInCityQuestionProcessor : QuestionProcessorBase, IQuestionProcessor
+	public class WhatTimeInCityQuestionHandler : QuestionHandler, IQuestionHandler
 	{
 		public bool CanAnswerQuestion(Question question)
 		{

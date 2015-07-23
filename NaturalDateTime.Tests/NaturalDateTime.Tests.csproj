@@ -42,8 +42,8 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="CityToken_Test.cs" />
-    <Compile Include="QuestionProcessors\WhenDaylightSavingsStartStopInCityProcessor_Test.cs" />
-    <Compile Include="QuestionProcessors\WhatTimeInCityQuestionProcessor_Test.cs" />
+    <Compile Include="QuestionHandlers\WhenDaylightSavingsStartStopInCityQuestionHandler_Test.cs" />
+    <Compile Include="QuestionHandlers\WhatTimeInCityQuestionHandler_Test.cs" />
     <Compile Include="Question_Test.cs" />
     <Compile Include="Tokenizers\CityTokenizer_Test.cs" />
     <Compile Include="Tokenizers\DateTokenizer_Test.cs" />

@@ -7,15 +7,15 @@ using NUnit.Framework;
 namespace NaturalDateTime.Tests
 {
     [TestFixture]
-    public class WhatTimeInCityQuestionProcessor_Test
+    public class WhatTimeInCityQuestionHandler_Test
     {
         [Test]
-        public void WhatTimeInCityQuestionProcessor_should_answer_questions_if_no_tokens_are_found()
+        public void WhatTimeInCityQuestionHandler_should_answer_questions_if_no_tokens_are_found()
         {
 			var question = new Question("New York City");
-            var processor = new WhatTimeInCityQuestionProcessor();
+            var handler = new WhatTimeInCityQuestionHandler();
             Assert.AreEqual(0, question.Tokens.Count);
-            Assert.IsTrue(processor.CanAnswerQuestion(question));
+            Assert.IsTrue(handler.CanAnswerQuestion(question));
         }
     }
 }
