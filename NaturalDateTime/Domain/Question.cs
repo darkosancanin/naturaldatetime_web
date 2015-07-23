@@ -132,26 +132,6 @@ namespace NaturalDateTime
 
             return true;
         }
-		
-		public bool ContainsAnyOfTheFollowing(params Type[] tokenTypes)
-        {
-            var tokens = _tokens.ToList();
-            if (tokenTypes.Any(tokenType => tokens.Exists(x => tokenType.IsAssignableFrom(x.GetType()))))
-                return true;
-
-            return false;
-        }
-		
-		public bool MatchesStructure(params Type[] tokenTypes){
-			if(_tokens.Count >= tokenTypes.Count()){
-				for(int x = 0; x < tokenTypes.Count(); x++){
-					if(_tokens[x].GetType() != tokenTypes[x]) return false;
-				}
-				return true;
-			}
-			
-			return false;
-		}
 
 		public T GetToken<T>(int whichOccuranceOfToken) where T : Token {
 			return (T)_tokens.Where(x => x is T).Skip(whichOccuranceOfToken - 1).FirstOrDefault();
