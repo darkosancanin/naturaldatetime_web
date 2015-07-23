@@ -18,10 +18,10 @@ namespace NaturalDateTime
 
         private Answer GetAnswerToWhatTimeInCity(Question question)
 		{
-            CityOrTimezoneToken  zonedToken = question.GetToken<CityOrTimezoneToken >();
+            CityOrTimezoneToken  cityOrTimezoneToken = question.GetToken<CityOrTimezoneToken >();
 			var answerText = String.Format("The current time in {0} is {1}.",
-                                            zonedToken.GetFormattedNameAndTimezone(zonedToken.GetCurrentTimeAsOffsetDateTime().ToInstant()),
-                                            zonedToken.GetCurrentTimeAsOffsetDateTime().LocalDateTime.GetFormattedTimeAndDate());
+                                            cityOrTimezoneToken.GetFormattedNameAndTimezone(cityOrTimezoneToken.GetCurrentTimeAsOffsetDateTime().ToInstant()),
+                                            cityOrTimezoneToken.GetCurrentTimeAsOffsetDateTime().LocalDateTime.GetFormattedTimeAndDate());
 			return new Answer(question, true, true, answerText);	
 		}
 	}
