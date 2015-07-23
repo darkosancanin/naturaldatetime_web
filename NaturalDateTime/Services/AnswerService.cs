@@ -10,7 +10,11 @@ namespace NaturalDateTime.Services
 {
     public class AnswerService
     {
-        public Answer GetAnswer(string questionText)
+        public Answer GetAnswer(string questionText) {
+            return GetAnswer(questionText, false);
+        }
+
+        public Answer GetAnswer(string questionText, bool includeDebugInformation)
         {
             var stopWatch = new Stopwatch();
             stopWatch.Start();
@@ -18,6 +22,7 @@ namespace NaturalDateTime.Services
             Answer answer = null;
             var questionProcessorResolver = new QuestionProcessorResolver();
             var questionProcessor = questionProcessorResolver.ResolveOrNull(question);
+
             try
             {
                 if (questionProcessor != null)
@@ -33,9 +38,13 @@ namespace NaturalDateTime.Services
                 answer = new Answer(question, understoodQuestion, false, errorMessage);
             }
 
-            answer.AddDebugInformation(question.DebugInformation);
-            answer.AddDebugInformation("Processing Time", String.Format("{0} ms", stopWatch.ElapsedMilliseconds.ToString()));
-            answer.AddDebugInformation("Tokens", answer.Question.FormatTextWithTokens());
+            if (includeDebugInformation)
+            {
+                answer.AddDebugInformation(question.DebugInformation);
+                answer.AddDebugInformation("Processing Time", String.Format("{0} ms", stopWatch.ElapsedMilliseconds.ToString()));
+                answer.AddDebugInformation("Tokens", answer.Question.FormatTextWithTokens());
+            }
+            
             return answer;
         }
     }

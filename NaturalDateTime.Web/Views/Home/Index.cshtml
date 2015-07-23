@@ -1,6 +1,6 @@
 ﻿@model NaturalDateTime.Web.Models.ViewModels.HomeViewModel
 
-<div class="container body-content" ng-app="naturalDateTime" ng-controller="homeController" ng-init="debugInfoEnabled=@Json.Encode(Model.DebugInfoEnabled)">
+<div class="container body-content" ng-app="naturalDateTime" ng-controller="homeController">
     <div>
         <div class="row">
             <div class="col-md-2"></div>
@@ -28,6 +28,7 @@
                     <span class="glyphicon glyphicon-alert" id="note-alert"> </span>
                     <span ng-bind="note" ng-init="note='@HttpUtility.JavaScriptStringEncode(@Model.Note)'"></span>
                 </div>
+                <span class="hidden" ng-bind="debugInfoEnabled" ng-init="debugInfoEnabled=@Json.Encode(Model.DebugInfoEnabled)"></span>
                 <div id="debug-information" ng-show="debugInfoEnabled && answer">
                     <span id="debug-information-heading">Debug Information</span>
                     <div ng-repeat="d in debugInfo">

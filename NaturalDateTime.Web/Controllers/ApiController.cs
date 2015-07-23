@@ -13,7 +13,7 @@ namespace NaturalDateTime.Web.Controllers
     public class ApiController : Controller
     {
         [HttpPost]
-        public ActionResult Question(string question, string client, string client_version)
+        public ActionResult Question(string question, string client, string client_version, string debug)
         {
             if (string.IsNullOrEmpty(question)) throw new HttpException(400, "Invalid request. Question not specified.");
             if (string.IsNullOrEmpty(client)) throw new HttpException(400, "Invalid request. Client not specified.");
@@ -24,7 +24,7 @@ namespace NaturalDateTime.Web.Controllers
             if (Request.Headers["User-Agent"] != null)
                 userAgent = Request.Headers["User-Agent"].ToString();
             var answerService = new AnswerService();
-            var answer = answerService.GetAnswer(question);
+            var answer = answerService.GetAnswer(question, !String.IsNullOrEmpty(debug));
 
             var dbContext = new NaturalDateTimeContext();
             var questionLog = new QuestionLog(answer.Question, answer, DateTime.UtcNow, client, client_version, IsBot(userAgent));

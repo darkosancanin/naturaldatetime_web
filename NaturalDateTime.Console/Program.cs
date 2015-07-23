@@ -21,7 +21,7 @@ namespace NaturalDateTime.Console
             {
                 System.Console.WriteLine();
                 var answerService = new AnswerService();
-                var answer = answerService.GetAnswer(userQuestion);
+                var answer = answerService.GetAnswer(userQuestion, true);
                 foreach (var debugInformation in answer.DebugInformation)
                     System.Console.WriteLine(String.Format("{0}: {1}", debugInformation.Name, debugInformation.Value));
                 System.Console.WriteLine();
