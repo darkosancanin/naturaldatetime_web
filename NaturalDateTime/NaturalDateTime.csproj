@@ -90,7 +90,6 @@
     <Compile Include="Domain\DaylightSavingInfo.cs" />
     <Compile Include="Domain\Meridiem.cs" />
     <Compile Include="Domain\Question.cs" />
-    <Compile Include="Domain\UnambiguousZonedDateTimeResult.cs" />
     <Compile Include="Tokens\DaylightSavingsToken.cs" />
     <Compile Include="Tokens\LiteralDateOrTimeToken.cs" />
     <Compile Include="Tokenizers\LiteralDateOrTimeTokenizer.cs" />
