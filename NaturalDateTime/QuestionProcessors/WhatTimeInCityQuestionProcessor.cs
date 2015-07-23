@@ -7,7 +7,7 @@ namespace NaturalDateTime
 	{
 		public bool CanAnswerQuestion(Question question)
 		{
-            return (question.Contains(LiteralDateOrTime) && question.ContainsExactNumberOfMatches(TokenWithKnownOffset, 1)) || (question.Contains(Timezone) && question.Tokens.Count == 1);
+            return (question.Contains(LiteralDateOrTime) && question.ContainsExactNumberOfMatches(CityOrTimezoneToken, 1)) || (question.Contains(Timezone) && question.Tokens.Count == 1);
 		}
 		
 		public Answer GetAnswer(Question question)
@@ -18,7 +18,7 @@ namespace NaturalDateTime
 
         private Answer GetAnswerToWhatTimeInCity(Question question)
 		{
-            TokenWithKnownOffset zonedToken = question.GetToken<TokenWithKnownOffset>();
+            CityOrTimezoneToken  zonedToken = question.GetToken<CityOrTimezoneToken >();
 			var answerText = String.Format("The current time in {0} is {1}.",
                                             zonedToken.GetFormattedNameAndTimezone(zonedToken.GetCurrentTimeAsOffsetDateTime().ToInstant()),
                                             zonedToken.GetCurrentTimeAsOffsetDateTime().LocalDateTime.GetFormattedTimeAndDate());

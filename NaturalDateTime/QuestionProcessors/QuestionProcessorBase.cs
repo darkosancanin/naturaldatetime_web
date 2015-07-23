@@ -5,7 +5,7 @@ namespace NaturalDateTime
 	public abstract class QuestionProcessorBase
 	{
         public Type DateOrTimeToken { get { return typeof(DateOrTimeToken); } }
-        public Type TokenWithKnownOffset { get { return typeof(TokenWithKnownOffset); } }
+        public Type CityOrTimezoneToken { get { return typeof(CityOrTimezoneToken ); } }
         public Type Timezone { get { return typeof(TimezoneToken); } }
         public Type City { get { return typeof(CityToken); } }
 		public Type Date { get { return typeof(DateToken); } }

@@ -4,7 +4,7 @@ using NodaTime;
 
 namespace NaturalDateTime
 {
-	public class TimezoneToken : TokenWithKnownOffset
+	public class TimezoneToken : CityOrTimezoneToken 
     {
         public Timezone Timezone { get; set; }
 

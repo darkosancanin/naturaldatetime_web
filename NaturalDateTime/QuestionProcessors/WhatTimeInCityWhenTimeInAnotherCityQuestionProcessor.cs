@@ -9,13 +9,13 @@ namespace NaturalDateTime
 	{
 		public bool CanAnswerQuestion(Question question)
 		{
-            return question.Contains(DateOrTimeToken) && question.ContainsExactNumberOfMatches(TokenWithKnownOffset, 2); ;
+            return question.Contains(DateOrTimeToken) && question.ContainsExactNumberOfMatches(CityOrTimezoneToken, 2); ;
 		}
 		
 		public Answer GetAnswer(Question question)
 		{
             question.ResolveTokenValues();
-			if(question.ContainsTokensInFollowingOrder(DateOrTimeToken, TokenWithKnownOffset, TokenWithKnownOffset))
+			if(question.ContainsTokensInFollowingOrder(DateOrTimeToken, CityOrTimezoneToken, CityOrTimezoneToken))
                 return GetAnswerToWhenTimeInKnownCityWhatTimeInUnknownCity(question); 
 		    else
                 return GetAnswerToWhatTimeInUnknownCityWhenTimeInKnownCity(question);
@@ -23,23 +23,23 @@ namespace NaturalDateTime
 
         private Answer GetAnswerToWhenTimeInKnownCityWhatTimeInUnknownCity(Question question)
         {
-            var knownCityToken = question.GetToken<TokenWithKnownOffset>();
+            var knownCityToken = question.GetToken<CityOrTimezoneToken >();
             var knownTimeToken = question.GetToken<TimeToken>();
             var knownDateToken = question.GetToken<DateToken>();
-            var unknownCityToken = question.GetToken<TokenWithKnownOffset>(2);
+            var unknownCityToken = question.GetToken<CityOrTimezoneToken >(2);
             return GetAnswerToTimeConversionQuestion(question, knownDateToken, knownTimeToken, knownCityToken, unknownCityToken);
         }
 
         private Answer GetAnswerToWhatTimeInUnknownCityWhenTimeInKnownCity(Question question)
         {
-            var unknownCityToken = question.GetToken<TokenWithKnownOffset>();
-            var knownCityToken = question.GetToken<TokenWithKnownOffset>(2);
+            var unknownCityToken = question.GetToken<CityOrTimezoneToken >();
+            var knownCityToken = question.GetToken<CityOrTimezoneToken >(2);
             var knownTimeToken = question.GetToken<TimeToken>();
             var knownDateToken = question.GetToken<DateToken>();
             return GetAnswerToTimeConversionQuestion(question, knownDateToken, knownTimeToken, knownCityToken, unknownCityToken);
         }
 
-        private Answer GetAnswerToTimeConversionQuestion(Question question, DateToken knownDateToken, TimeToken knownTimeToken, TokenWithKnownOffset knownOffsetToken, TokenWithKnownOffset unknownOffsetToken)
+        private Answer GetAnswerToTimeConversionQuestion(Question question, DateToken knownDateToken, TimeToken knownTimeToken, CityOrTimezoneToken  knownOffsetToken, CityOrTimezoneToken  unknownOffsetToken)
 		{
             var knownEntityOffsetDateTime = OffsetDateTimeExtensions.CreateUpdatedOffsetDateTimeFromTokens(knownOffsetToken.GetCurrentTimeAsOffsetDateTime(), knownDateToken, knownTimeToken);
             Instant knownEntityInstant;

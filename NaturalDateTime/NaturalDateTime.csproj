@@ -75,7 +75,7 @@
     <Compile Include="Tokens\CityToken.cs" />
     <Compile Include="Tokens\DateToken.cs" />
     <Compile Include="Tokens\DateOrTimeToken.cs" />
-    <Compile Include="Tokens\TokenWithKnownOffset.cs" />
+    <Compile Include="Tokens\CityOrTimezoneToken.cs" />
     <Compile Include="Tokens\TimezoneToken.cs" />
     <Compile Include="Tokens\TimeToken.cs" />
     <Compile Include="Tokens\Token.cs" />

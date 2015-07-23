@@ -3,9 +3,9 @@ using NodaTime;
 
 namespace NaturalDateTime
 {
-	public abstract class TokenWithKnownOffset: Token
+	public abstract class CityOrTimezoneToken : Token
 	{
-        public TokenWithKnownOffset(string value, int position) :base(value, position)
+        public CityOrTimezoneToken (string value, int position) :base(value, position)
 		{
         }
         public abstract string GetFormattedNameAndTimezone(Instant instant);

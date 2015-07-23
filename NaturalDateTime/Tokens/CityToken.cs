@@ -8,7 +8,7 @@ using NodaTime;
 
 namespace NaturalDateTime
 {
-    public class CityToken : TokenWithKnownOffset
+    public class CityToken : CityOrTimezoneToken 
     {
         public City City { get; set; }
 
