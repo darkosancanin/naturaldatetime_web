@@ -1,4 +1,6 @@
+using NaturalDateTime.Domain;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace NaturalDateTime
@@ -24,6 +26,12 @@ namespace NaturalDateTime
         public void AddDebugInformation(string name, string value)
         {
             DebugInformation.Add(new DebugInformation(name, value));
+        }
+
+        public void AddDebugInformation(IList<DebugInformation> debugInformation)
+        {
+            foreach (var di in debugInformation)
+                DebugInformation.Add(di);
         }
     }
 }

@@ -6,6 +6,8 @@ namespace NaturalDateTime
 	{
 		bool CanAnswerQuestion(Question question);
 		Answer GetAnswer(Question question);
-	}
+        bool UnderstoodQuestion { get; }
+
+    }
 }
 

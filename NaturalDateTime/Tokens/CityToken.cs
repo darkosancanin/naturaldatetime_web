@@ -3,13 +3,56 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Linq;
 using System.Text;
+using NaturalDateTime.Exceptions;
+using NodaTime;
 
 namespace NaturalDateTime
 {
-    public class CityToken : Token
+    public class CityToken : TokenWithKnownOffset
     {
+        public City City { get; set; }
+
+        public override int Priority
+        {
+            get { return 5; }
+        }
         public CityToken (string value, int position) :base(value, position)
         {
+        }
+
+        public override OffsetDateTime GetCurrentTimeAsOffsetDateTime()
+        {
+            return SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Tzdb[City.Timezone]).ToOffsetDateTime();
+        }
+
+        public ZonedDateTime GetCurrentTime()
+        {
+            return SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Tzdb[City.Timezone]);
+        }
+
+        public override LocalDateTime GetLocalDateTime(Instant instant)
+        {
+            return instant.InZone(DateTimeZoneProviders.Tzdb[City.Timezone]).LocalDateTime;
+        }
+
+        public override string GetFormattedNameAndTimezone(Instant instant)
+        {
+            var timezoneAbbreviation = instant.InZone(DateTimeZoneProviders.Tzdb[City.Timezone]).GetZoneInterval().Name;
+            return City.GetFormattedNameAndTimezone(timezoneAbbreviation);
+        }
+
+        public override void ResolveTokenValues()
+        {
+            var cityResolver = new CityResolver();
+            var cityResolverResult = cityResolver.Resolve(this);
+
+            if (cityResolverResult.Status == CityResolverResultStatus.FAILED)
+                throw new InvalidTokenValueException(ErrorMessages.UnableToRecognizeCity);
+            else
+                City = cityResolverResult.City;
+
+            if (City.HasNoTimezone)
+                throw new InvalidTokenValueException(ErrorMessages.NoTimezone);
         }
 
         public IList<CityTokenPotentialDetails> GetPotentialCityDetails()

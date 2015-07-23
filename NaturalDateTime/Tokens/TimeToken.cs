@@ -5,11 +5,16 @@ using System.Text;
 
 namespace NaturalDateTime
 {
-    public class TimeToken : Token
+    public class TimeToken : DateOrTimeToken
     {
 		public int Hour { get;set; }
 		public int? Minute { get;set; }
 		public Meridiem Meridiem { get;set; }
+
+        public override int Priority
+        {
+            get { return 6; }
+        }
 
         public TimeToken(string value, int position, int hour, int? minute, Meridiem meridiem):base(value, position)
         {

@@ -39,8 +39,8 @@ namespace NaturalDateTime.Web.Models
         {
             get
             {
-                var sydneyTime = new DateTimeManager().ConvertDateTime(LocalDateTime.FromDateTime(UtcTime), DateTimeZone.Utc, DateTimeZoneProviders.Tzdb["Australia/Sydney"]);
-                return sydneyTime.ConvertedZonedDateTime.LocalDateTime.ToString("ddd, dd MMM yyyy h:mm:ss tt", CultureInfo.InvariantCulture).ToString();
+                var sydneyTime = SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Tzdb["Australia/Sydney"]);
+                return sydneyTime.LocalDateTime.ToString("ddd, dd MMM yyyy h:mm:ss tt", CultureInfo.InvariantCulture).ToString();
 
             }
         }

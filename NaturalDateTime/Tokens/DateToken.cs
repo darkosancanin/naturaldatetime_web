@@ -5,11 +5,15 @@ using System.Text;
 
 namespace NaturalDateTime
 {
-    public class DateToken : Token
+    public class DateToken : DateOrTimeToken
     {
 		public int? Day { get;set; }
 		public int? Month { get;set; }
 		public int? Year { get;set; }
+        public override int Priority
+        {
+            get { return 3; }
+        }
 
         public DateToken (string value, int position, int? day, int? month, int? year):base(value, position)
         {

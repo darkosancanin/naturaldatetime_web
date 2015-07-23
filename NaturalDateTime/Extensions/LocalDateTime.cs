@@ -1,3 +1,5 @@
+using NaturalDateTime.Exceptions;
+using NodaTime;
 using System;
 using System.Globalization;
 
@@ -37,7 +39,7 @@ namespace NaturalDateTime
             return formattedTime;
         }
 
-		public static string AddOrdinalToDay(int day)
+        public static string AddOrdinalToDay(int day)
 		{
 			switch(day % 100)
 	        {

@@ -50,7 +50,6 @@
     <Compile Include="Tokenizers\DaylightSavingsTokenizer_Test.cs" />
     <Compile Include="Tokenizers\LiteralDateOrTimeTokenizer_Test.cs" />
     <Compile Include="Tokenizers\TimeTokenizer_Test.cs" />
-    <Compile Include="Tokenizers\TimeUnitTokenizer_Test.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

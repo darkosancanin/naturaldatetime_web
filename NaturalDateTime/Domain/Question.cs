@@ -2,21 +2,40 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using NaturalDateTime.Domain;
+using System.Diagnostics;
 
 namespace NaturalDateTime
 {
 	public class Question
 	{
 		public string QuestionText { get; set; }
-		public string PreProcessedQuestionText { get; set; }
+        public IList<DebugInformation> DebugInformation { get; set; }
+        public string PreProcessedQuestionText { get; set; }
 		private IList<Token> _tokens = new List<Token>();
 
         public Question(string question)
         {
+            DebugInformation = new List<DebugInformation>();
             PreProcessedQuestionText = question;
             QuestionText = PreProcessText(question);
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
             Tokenizers.GetAll().ForEach(x => x.TokenizeTheQuestion(this));
+            AddDebugInformation("Tokenizing Question", String.Format("{0} ms, {1} ticks", stopwatch.ElapsedMilliseconds, stopwatch.ElapsedTicks));
             OrderTokens();
+            
+        }
+
+        public void AddDebugInformation(string name, string value)
+        {
+            DebugInformation.Add(new DebugInformation(name, value));
+        }
+
+        public void ResolveTokenValues()
+        {
+            foreach (var token in _tokens)
+                token.ResolveTokenValues();
         }
 
         public string PreProcessText(string text)
@@ -26,20 +45,23 @@ namespace NaturalDateTime
         }
 		
 		public void AddToken(Token token){
-			var overlappingTokens = _tokens.Where(x => x.Value.Contains(token.Value) && token.LengthOfMatch != x.LengthOfMatch).ToList();
-			var hasLongerOverlappingTokenAlready = false;
-			foreach(var overlappingToken in overlappingTokens){
-				if(token.LengthOfMatch < overlappingToken.LengthOfMatch) {
-					hasLongerOverlappingTokenAlready = true;
-				}
-				else{
-					_tokens.Remove(overlappingToken);	
-				}
-			}
-			if(!hasLongerOverlappingTokenAlready){
-				_tokens.Add(token);
-			}
-		}
+            var overlappingTokens = _tokens.Where(x => (token.Position >= x.Position && token.Position <= (x.Position + x.LengthOfMatch)) || ((token.Position + token.LengthOfMatch) >= x.Position && (token.Position + token.LengthOfMatch) <= (x.Position + x.LengthOfMatch))).ToList();
+            if (overlappingTokens.Count > 0)
+            {
+                foreach (var overlappingToken in overlappingTokens)
+                {
+                    if(token.Priority <= overlappingToken.Priority)
+                    {
+                        _tokens.Remove(overlappingToken);
+                        _tokens.Add(token);
+                    }
+                }
+            }
+            else
+            {
+                 _tokens.Add(token);
+            }
+        }
 		
 		public void AddTokens(IList<Token> tokens){
 			foreach(var token in tokens){
@@ -90,22 +112,22 @@ namespace NaturalDateTime
         {
 			var numberOfItemsToSkip = 0;
             foreach(var tokenType in tokenNames){
-				var matchingToken = _tokens.Skip(numberOfItemsToSkip).Where(x => x.GetType() == tokenType).FirstOrDefault();
+				var matchingToken = _tokens.Skip(numberOfItemsToSkip).Where(x => tokenType.IsAssignableFrom(x.GetType())).FirstOrDefault();
 				if(matchingToken == null) return false;
 				numberOfItemsToSkip = _tokens.IndexOf(matchingToken) + 1;
 			}
 			return true;
         }
 		
-		public bool ContainsMultipleOccurrences(Type tokenType, int numberOfOccurrences)
+		public bool ContainsExactNumberOfMatches(Type tokenType, int numberOfOccurrences)
         {
-            return _tokens.Where(x => x.GetType() == tokenType).Count() == numberOfOccurrences;
+            return _tokens.Where(x => tokenType.IsAssignableFrom(x.GetType())).Count() == numberOfOccurrences;
         }
 
         public bool Contains(params Type[] tokenTypes)
         {
             var tokens = _tokens.ToList();
-            if (tokenTypes.Any(tokenType => !tokens.Exists(x => x.GetType() == tokenType)))
+            if (tokenTypes.Any(tokenType => !tokens.Exists(x => tokenType.IsAssignableFrom(x.GetType()))))
                 return false;
 
             return true;
@@ -114,7 +136,7 @@ namespace NaturalDateTime
 		public bool ContainsAnyOfTheFollowing(params Type[] tokenTypes)
         {
             var tokens = _tokens.ToList();
-            if (tokenTypes.Any(tokenType => tokens.Exists(x => x.GetType() == tokenType)))
+            if (tokenTypes.Any(tokenType => tokens.Exists(x => tokenType.IsAssignableFrom(x.GetType()))))
                 return true;
 
             return false;
@@ -139,17 +161,5 @@ namespace NaturalDateTime
 			return (T)_tokens.Where(x => x is T).FirstOrDefault();
 		}
 	}
-
-    public class DebugInformation
-    {
-        public string Name { get; set; }
-        public string Value { get; set; }
-
-        public DebugInformation(string name, string value)
-        {
-            Name = name;
-            Value = value;
-        }
-    }
 }
 

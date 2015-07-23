@@ -1,5 +1,7 @@
-﻿using NaturalDateTime.Web.Models.ViewModels;
-using NaturalDateTime.Web.Services;
+﻿using NaturalDateTime.Services;
+using NaturalDateTime.Web.DataAccess;
+using NaturalDateTime.Web.Models;
+using NaturalDateTime.Web.Models.ViewModels;
 using System;
 using System.Web;
 using System.Web.Mvc;
@@ -16,17 +18,30 @@ namespace NaturalDateTime.Web.Controllers
                 q = HttpUtility.UrlDecode(q);
                 q = q.Replace("_", " ");
                 ViewBag.Title = q + " -  Natural Date and Time";
+                
+                var answerService = new AnswerService();
+                var answer = answerService.GetAnswer(q);
+
                 var userAgent = String.Empty;
                 if (Request.Headers["User-Agent"] != null)
                     userAgent = Request.Headers["User-Agent"].ToString();
-                var questionService = new QuestionService();
                 if (string.IsNullOrEmpty(client)) client = ApplicationSettings.WebClientName;
                 if (string.IsNullOrEmpty(client_version)) client_version = ApplicationSettings.WebApplicationVersion;
-                var answer = questionService.GetAnswer(q, userAgent, client, client_version);
+                var dbContext = new NaturalDateTimeContext();
+                var questionLog = new QuestionLog(answer.Question, answer, DateTime.UtcNow, client, client_version, IsBot(userAgent));
+                dbContext.AddQuestionLog(questionLog);
+                dbContext.SaveChanges();
+
                 return View("Index", new HomeViewModel(q, answer.AnswerText, answer.Note));
             }
 
             return View(new HomeViewModel(!String.IsNullOrEmpty(debug)));
+        }
+
+        private bool IsBot(string userAgent)
+        {
+            var isBot = userAgent != null && userAgent.ToLower().Contains("bot");
+            return isBot;
         }
     }
 }

@@ -1,3 +1,5 @@
+using NodaTime;
+using NodaTime.TimeZones;
 using System;
 using System.Text;
 
@@ -12,26 +14,30 @@ namespace NaturalDateTime
 		
 		public Answer GetAnswer(Question question)
 		{
+            question.ResolveTokenValues();
             var cityToken = question.GetToken<CityToken>();
             var dateToken = question.GetToken<DateToken>();
             int? year = null;
             if (dateToken != null) year = dateToken.Year;
-            var cityResolver = new CityResolver();
-            var dateTimeManager = new DateTimeManager();
-            var cityResolverResult = cityResolver.Resolve(cityToken);
-
-            if (cityResolverResult.Status == CityResolverResultStatus.FAILED)
-                return new Answer(question, true, false, ErrorMessages.UnableToRecognizeCity);
-			
-			if (cityResolverResult.City.HasNoTimezone)
-                return new Answer(question, true, false, ErrorMessages.NoTimezone);
-
             DaylightSavingInfo daylightSavingInfo;
             if (year.HasValue)
-                daylightSavingInfo = dateTimeManager.GetDaylightSavingInfo(year.Value, cityResolverResult.City.Timezone);
+            {
+                var firstDateInTheYear = new LocalDateTime(year.Value, 1, 1, 0, 0).InZone(DateTimeZoneProviders.Tzdb[cityToken.City.Timezone], Resolvers.LenientResolver);
+                var firstZoneIntervalInTheYear = firstDateInTheYear.GetZoneInterval();
+                if (firstZoneIntervalInTheYear.IsoLocalEnd.Year > 10000) {
+                    daylightSavingInfo = DaylightSavingInfo.CreateWithNoDaylightSavings();
+                }
+                else
+                {
+                    var firstDateInTheNextZoneInterval = firstDateInTheYear.Plus(firstZoneIntervalInTheYear.Duration).Plus(Duration.FromMilliseconds(1));
+                    daylightSavingInfo = GetDaylightSavingInfo(firstDateInTheNextZoneInterval);
+                }
+            }
             else
-                daylightSavingInfo = dateTimeManager.GetCurrentDaylightSavingInfo(cityResolverResult.City.Timezone);
-            var answerText = GetFormattedDaylightSavingInfo(daylightSavingInfo, cityResolverResult.City);
+            {
+                daylightSavingInfo = GetDaylightSavingInfo(cityToken.GetCurrentTime());
+            }
+            var answerText = GetFormattedDaylightSavingInfo(daylightSavingInfo, cityToken.City);
             return new Answer(question, true, true, answerText);
 		}
 
@@ -105,5 +111,40 @@ namespace NaturalDateTime
             }
             return formattedText.ToString();
         }
-	}
+
+        private DaylightSavingInfo GetDaylightSavingInfo(ZonedDateTime zonedDateTime)
+        {
+            if (zonedDateTime.GetZoneInterval().IsoLocalEnd.Year > 10000) return DaylightSavingInfo.CreateWithNoDaylightSavings();
+
+            var daylightSavingInfo = new DaylightSavingInfo { IsInDaylightSavingsTime = zonedDateTime.GetZoneInterval().Savings.Milliseconds > 0 };
+
+            if (daylightSavingInfo.IsInDaylightSavingsTime)
+            {
+                daylightSavingInfo.End = zonedDateTime.GetZoneInterval().IsoLocalEnd;
+                daylightSavingInfo.EndDateSavingPutBackInMilliseconds = zonedDateTime.GetZoneInterval().Savings.Milliseconds;
+                daylightSavingInfo.HasEnded = daylightSavingInfo.End.ToDateTimeUnspecified() < zonedDateTime.LocalDateTime.ToDateTimeUnspecified();
+                daylightSavingInfo.Start = zonedDateTime.GetZoneInterval().IsoLocalStart.Minus(Period.FromMilliseconds(zonedDateTime.GetZoneInterval().Savings.Milliseconds));
+                daylightSavingInfo.StartDateSavingPutForwardInMilliseconds = zonedDateTime.GetZoneInterval().Savings.Milliseconds;
+                daylightSavingInfo.HasStarted = daylightSavingInfo.Start.ToDateTimeUnspecified() < zonedDateTime.LocalDateTime.ToDateTimeUnspecified();
+            }
+            else
+            {
+                var oneMillisecondBeforeZoneIntervalStarted = zonedDateTime.Zone.ResolveLocal(zonedDateTime.GetZoneInterval().IsoLocalStart.Minus(Period.FromMilliseconds(1)), Resolvers.LenientResolver).ToInstant();
+                var previousZoneInterval = zonedDateTime.Zone.GetZoneInterval(oneMillisecondBeforeZoneIntervalStarted);
+                daylightSavingInfo.End = previousZoneInterval.IsoLocalEnd;
+                daylightSavingInfo.EndDateSavingPutBackInMilliseconds = previousZoneInterval.Savings.Milliseconds;
+                daylightSavingInfo.HasEnded = daylightSavingInfo.End.ToDateTimeUnspecified() < zonedDateTime.LocalDateTime.ToDateTimeUnspecified();
+                if (!daylightSavingInfo.NoDaylightSavings)
+                {
+                    var oneMillisecondAfterZoneIntervalEnded = zonedDateTime.Zone.ResolveLocal(zonedDateTime.GetZoneInterval().IsoLocalEnd.Plus(Period.FromMilliseconds(1)), Resolvers.LenientResolver).ToInstant();
+                    var nextZoneInterval = zonedDateTime.Zone.GetZoneInterval(oneMillisecondAfterZoneIntervalEnded);
+                    daylightSavingInfo.Start = nextZoneInterval.IsoLocalStart.Minus(Period.FromMilliseconds(nextZoneInterval.Savings.Milliseconds));
+                    daylightSavingInfo.StartDateSavingPutForwardInMilliseconds = nextZoneInterval.Savings.Milliseconds;
+                    daylightSavingInfo.HasStarted = daylightSavingInfo.Start.ToDateTimeUnspecified() < zonedDateTime.LocalDateTime.ToDateTimeUnspecified();
+                }
+            }
+
+            return daylightSavingInfo;
+        }
+    }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Runtime.Serialization;
 using System.Collections;
+using NaturalDateTime.Domain;
 
 namespace NaturalDateTime.Web.Models
 {

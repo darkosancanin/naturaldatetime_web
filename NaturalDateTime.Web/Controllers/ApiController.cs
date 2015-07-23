@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using NaturalDateTime.Web.Models;
-using NaturalDateTime.Web.Services;
 using System.Web.Mvc;
 using System.Web;
+using NaturalDateTime.Web.DataAccess;
+using NaturalDateTime.Services;
 
 namespace NaturalDateTime.Web.Controllers
 {
@@ -22,9 +23,20 @@ namespace NaturalDateTime.Web.Controllers
             var userAgent = String.Empty;
             if (Request.Headers["User-Agent"] != null)
                 userAgent = Request.Headers["User-Agent"].ToString();
-            var questionService = new QuestionService();
-            var answer = questionService.GetAnswer(question, userAgent, client, client_version);
+            var answerService = new AnswerService();
+            var answer = answerService.GetAnswer(question);
+
+            var dbContext = new NaturalDateTimeContext();
+            var questionLog = new QuestionLog(answer.Question, answer, DateTime.UtcNow, client, client_version, IsBot(userAgent));
+            dbContext.AddQuestionLog(questionLog);
+            dbContext.SaveChanges();
+
             return Json(new AnswerModel(answer), JsonRequestBehavior.AllowGet);
+        }
+        private bool IsBot(string userAgent)
+        {
+            var isBot = userAgent != null && userAgent.ToLower().Contains("bot");
+            return isBot;
         }
     }
 }

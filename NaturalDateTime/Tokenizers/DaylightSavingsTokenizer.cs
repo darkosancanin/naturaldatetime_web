@@ -7,7 +7,9 @@ namespace NaturalDateTime
     {
 		public void TokenizeTheQuestion(Question question)
         {
-            var matches = Regex.Matches(question.QuestionText, @"(day(\s)?light)\ssaving('s|s)?\s(time('s|s)?)?", RegexOptions.IgnoreCase);
+            var daylightSavingsTimeRegex = @"(day(\s)?light)\ssaving('s|s)?\s(time('s|s)?)?";
+            var dstRegex = @"dst\s";
+            var matches = Regex.Matches(question.QuestionText, string.Format(@"(^|\s)({0})|({1})", daylightSavingsTimeRegex, dstRegex), RegexOptions.IgnoreCase);
             foreach (Match match in matches)
             {
                 Group group = match.Groups[0];

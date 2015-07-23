@@ -11,6 +11,8 @@ namespace NaturalDateTime
 
         public int Position { get; set; }
 
+        public abstract int Priority { get; }
+
         public Token(string value, int position)
         {
 			Value = value;
@@ -18,7 +20,7 @@ namespace NaturalDateTime
             if(Value.StartsWith(" "))
             {
                 Value = Value.TrimStart();
-                Position -= 1;
+                Position += 1;
             }
             Value = Value.TrimEnd();
         }
@@ -27,13 +29,17 @@ namespace NaturalDateTime
 		{ 
 			get { return Value.Length; }
 		}
-		
-		public virtual string FormattedStartTag 
+
+        public virtual string FormattedStartTag 
 		{ 
 			get { return String.Format("<{0}>", this.GetType().Name); }
 		}
-		
-		public virtual string FormattedEndTag 
+
+        public virtual void ResolveTokenValues()
+        {
+        }
+
+        public virtual string FormattedEndTag 
 		{ 
 			get { return String.Format("</{0}>", this.GetType().Name);; }
 		}

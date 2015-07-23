@@ -55,10 +55,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Domain\DebugInformation.cs" />
+    <Compile Include="Domain\Timezones.cs" />
+    <Compile Include="Exceptions\InvalidTokenValueException.cs" />
+    <Compile Include="Extensions\OffsetDateTimeExtensions.cs" />
+    <Compile Include="QuestionProcessors\NoTokenQuestionProcessor.cs" />
+    <Compile Include="QuestionProcessors\WhatTimeInCityWhenTimeInAnotherCityQuestionProcessor.cs" />
     <Compile Include="Resolvers\CountryCodeLookup.cs" />
     <Compile Include="QuestionProcessors\IQuestionProcessor.cs" />
     <Compile Include="QuestionProcessors\QuestionProcessorResolver.cs" />
     <Compile Include="QuestionProcessors\WhatTimeInCityQuestionProcessor.cs" />
+    <Compile Include="Services\AnswerService.cs" />
+    <Compile Include="Tokenizers\TimezoneTokenizer.cs" />
     <Compile Include="Tokenizers\CityTokenizer.cs" />
     <Compile Include="Tokenizers\DateTokenizer.cs" />
     <Compile Include="Tokenizers\DaylightSavingsTokenizer.cs" />
@@ -66,13 +74,15 @@
     <Compile Include="Tokenizers\TimeTokenizer.cs" />
     <Compile Include="Tokens\CityToken.cs" />
     <Compile Include="Tokens\DateToken.cs" />
+    <Compile Include="Tokens\DateOrTimeToken.cs" />
+    <Compile Include="Tokens\TokenWithKnownOffset.cs" />
+    <Compile Include="Tokens\TimezoneToken.cs" />
     <Compile Include="Tokens\TimeToken.cs" />
     <Compile Include="Tokens\Token.cs" />
     <Compile Include="ApplicationSettings.cs" />
     <Compile Include="Resolvers\CityResolver.cs" />
     <Compile Include="Resolvers\CityResolverResult.cs" />
-    <Compile Include="Managers\DateTimeManager.cs" />
-    <Compile Include="ErrorMessages.cs" />
+    <Compile Include="Domain\ErrorMessages.cs" />
     <Compile Include="Extensions\LocalDateTime.cs" />
     <Compile Include="QuestionProcessors\WhenDaylightSavingsStartStopInCityProcessor.cs" />
     <Compile Include="Domain\Answer.cs" />
@@ -82,13 +92,10 @@
     <Compile Include="Domain\Meridiem.cs" />
     <Compile Include="Domain\Question.cs" />
     <Compile Include="Domain\UnambiguousZonedDateTimeResult.cs" />
-    <Compile Include="Domain\LocalDateTimeResult.cs" />
     <Compile Include="Extensions\String.cs" />
     <Compile Include="Tokens\DaylightSavingsToken.cs" />
     <Compile Include="Tokens\LiteralDateOrTimeToken.cs" />
     <Compile Include="Tokenizers\LiteralDateOrTimeTokenizer.cs" />
-    <Compile Include="Tokenizers\TimeUnitTokenizer.cs" />
-    <Compile Include="Tokens\TimeUnitToken.cs" />
     <Compile Include="Tokenizers\Tokenizers.cs" />
     <Compile Include="QuestionProcessors\QuestionProcessorBase.cs" />
   </ItemGroup>
