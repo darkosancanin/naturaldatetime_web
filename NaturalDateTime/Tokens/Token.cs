@@ -9,18 +9,18 @@ namespace NaturalDateTime
     {
 		public string Value { get; set; }
 
-        public int Position { get; set; }
+        public int StartPosition { get; set; }
 
         public abstract int Priority { get; }
 
-        public Token(string value, int position)
+        public Token(string value, int startPosition)
         {
 			Value = value;
-            Position = position;
+            StartPosition = startPosition;
             if(Value.StartsWith(" "))
             {
                 Value = Value.TrimStart();
-                Position += 1;
+                StartPosition += 1;
             }
             Value = Value.TrimEnd();
         }
@@ -29,6 +29,11 @@ namespace NaturalDateTime
 		{ 
 			get { return Value.Length; }
 		}
+
+        public int FinishPosition
+        {
+            get { return StartPosition + LengthOfMatch; }
+        }
 
         public virtual string FormattedStartTag 
 		{ 

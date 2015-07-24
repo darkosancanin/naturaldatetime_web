@@ -45,7 +45,7 @@ namespace NaturalDateTime
         }
 		
 		public void AddToken(Token token){
-            var overlappingTokens = _tokens.Where(x => (token.Position >= x.Position && token.Position <= (x.Position + x.LengthOfMatch)) || ((token.Position + token.LengthOfMatch) >= x.Position && (token.Position + token.LengthOfMatch) <= (x.Position + x.LengthOfMatch))).ToList();
+            var overlappingTokens = _tokens.Where(x => (token.StartPosition >= x.StartPosition && token.StartPosition <= x.FinishPosition) || (token.FinishPosition >= x.StartPosition && token.FinishPosition <= x.FinishPosition)).ToList();
             if (overlappingTokens.Count > 0)
             {
                 foreach (var overlappingToken in overlappingTokens)
@@ -70,7 +70,7 @@ namespace NaturalDateTime
 		}
 		
 		public void OrderTokens(){
-			_tokens = _tokens.OrderBy(x => x.Position).ToList();	
+			_tokens = _tokens.OrderBy(x => x.StartPosition).ToList();	
 		}
 		
 		public void RemoveAllTokens(){
