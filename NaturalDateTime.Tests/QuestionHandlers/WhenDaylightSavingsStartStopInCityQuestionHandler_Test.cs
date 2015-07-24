@@ -26,5 +26,14 @@ namespace NaturalDateTime.Tests
             Assert.IsNull(question.GetToken<CityToken>());
             Assert.IsFalse(handler.CanAnswerQuestion(question));
         }
+
+        [Test]
+        public void WhenDaylightSavingsStartStopInCityQuestionHandler_should_answer_when_asking_for_dst()
+        {
+            var question = new Question("DST time in London");
+            var handler = new WhenDaylightSavingInCityQuestionHandler();
+            Assert.IsNotNull(question.GetToken<DaylightSavingsToken>());
+            Assert.IsTrue(handler.CanAnswerQuestion(question));
+        }
     }
 }
