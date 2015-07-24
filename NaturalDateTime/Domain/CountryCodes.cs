@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NaturalDateTime.Domain
+namespace NaturalDateTime
 {
     public static class CountryCodes
     {

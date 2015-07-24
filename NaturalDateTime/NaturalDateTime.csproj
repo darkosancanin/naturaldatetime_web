@@ -80,8 +80,6 @@
     <Compile Include="Tokens\TimeToken.cs" />
     <Compile Include="Tokens\Token.cs" />
     <Compile Include="ApplicationSettings.cs" />
-    <Compile Include="Resolvers\CityResolver.cs" />
-    <Compile Include="Resolvers\CityResolverResult.cs" />
     <Compile Include="Domain\ErrorMessages.cs" />
     <Compile Include="Extensions\LocalDateTime.cs" />
     <Compile Include="QuestionHandlers\WhenDaylightSavingsStartStopInCityQuestionHandler.cs" />

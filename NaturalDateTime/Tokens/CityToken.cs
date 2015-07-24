@@ -43,13 +43,10 @@ namespace NaturalDateTime
 
         public override void ResolveTokenValues()
         {
-            var cityResolver = new CityResolver();
-            var cityResolverResult = cityResolver.Resolve(this);
+            City = City.FindCity(this);
 
-            if (cityResolverResult.Status == CityResolverResultStatus.FAILED)
+            if (City == null)
                 throw new InvalidTokenValueException(ErrorMessages.UnableToRecognizeCity);
-            else
-                City = cityResolverResult.City;
 
             if (City.HasNoTimezone)
                 throw new InvalidTokenValueException(ErrorMessages.NoTimezone);
