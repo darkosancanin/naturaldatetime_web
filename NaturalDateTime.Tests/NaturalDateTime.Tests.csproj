@@ -43,7 +43,7 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Tokens\CityToken_Test.cs" />
     <Compile Include="QuestionHandlers\WhenDaylightSavingsStartStopInCityQuestionHandler_Test.cs" />
-    <Compile Include="QuestionHandlers\WhatTimeInCityQuestionHandler_Test.cs" />
+    <Compile Include="QuestionHandlers\NoTokensQuestionHandler_Test.cs" />
     <Compile Include="Domain\Question_Test.cs" />
     <Compile Include="Tokenizers\CityTokenizer_Test.cs" />
     <Compile Include="Tokenizers\DateTokenizer_Test.cs" />
