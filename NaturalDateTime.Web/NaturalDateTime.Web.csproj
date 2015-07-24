@@ -162,6 +162,9 @@
     <Content Include="Content\css\master.css" />
     <Content Include="Content\css\main.css" />
     <Content Include="Content\css\admin\ui-grid-unstable.min.css" />
+    <Content Include="Content\Images\android_icon.png" />
+    <Content Include="Content\Images\chrome_extension_icon.png" />
+    <Content Include="Content\Images\iphone_icon.png" />
     <Content Include="Content\Images\loading.gif" />
     <Content Include="Content\Images\NaturalDateTime.png" />
     <Content Include="favicon.ico" />
