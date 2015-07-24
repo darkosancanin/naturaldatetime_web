@@ -9,8 +9,10 @@ namespace NaturalDateTime
     {
         private static IList<Timezone> _timezones = new List<Timezone>()
         {
+            new Timezone("Amazon Summer Time", "AMST", Offset.FromHours(-3)),
+            new Timezone("Amazon Time", "AMT", Offset.FromHours(-4)),
             new Timezone("Australian Central Daylight Time", "ACDT", Offset.FromHoursAndMinutes(10, 30)),
-            new Timezone("Australian Central Standard Time", "ACDT", Offset.FromHoursAndMinutes(9, 30)),
+            new Timezone("Australian Central Standard Time", "ACST", Offset.FromHoursAndMinutes(9, 30)),
             new Timezone("Australian Central Time", "ACT", "Australia/Adelaide"),
             new Timezone("Australian Central Western Standard Time", "ACWST", Offset.FromHoursAndMinutes(8, 45)),
             new Timezone("Atlantic Daylight Time", "ADT", Offset.FromHours(-3)),
@@ -18,6 +20,8 @@ namespace NaturalDateTime
             new Timezone("Australian Eastern Daylight Time", "AEDT", Offset.FromHours(11)),
             new Timezone("Australian Eastern Standard Time", "AEST", Offset.FromHours(10)),
             new Timezone("Australian Eastern Time", "AET", "Australia/Sydney"),
+            new Timezone("Australian Western Daylight Time", "AWDT", Offset.FromHours(9)),
+            new Timezone("Australian Western Standard Time", "AWST", Offset.FromHours(8)),
             new Timezone("Alaska Daylight Time", "AKDT", Offset.FromHours(-8)),
             new Timezone("Alaska Standard Time", "AKST", Offset.FromHours(-9)),
             new Timezone("Brasilia Summer Time", "BRST", Offset.FromHours(-2)),
@@ -35,9 +39,13 @@ namespace NaturalDateTime
             new Timezone("Eastern Daylight Time", "EDT", Offset.FromHours(-4)),
             new Timezone("Eastern Standard Time", "EST", Offset.FromHours(-5)),
             new Timezone("Eastern Time", "ET", "US/Eastern"),
+            new Timezone("Eastern European Summer Time", "EEST", Offset.FromHours(3)),
+            new Timezone("Eastern European Time", "EET", Offset.FromHours(2)),
+            new Timezone("Fiji Summer Time", "FJST", Offset.FromHours(13)),
+            new Timezone("Fiji Time", "FJT", Offset.FromHours(12)),
             new Timezone("Greenwich Mean Time", "GMT", Offset.FromHours(0)),
             new Timezone("Hawaii-Aleutian Daylight Time", "HADT", Offset.FromHours(-9)),
-            new Timezone("Hawaii-Aleutian Standard Time", "HADT", Offset.FromHours(-10)),
+            new Timezone("Hawaii-Aleutian Standard Time", "HAST", Offset.FromHours(-10)),
             new Timezone("Hawaii Daylight Time", "HDT", Offset.FromHours(-9)),
             new Timezone("Hawaii Standard Time", "HST", Offset.FromHours(-10)),
             new Timezone("Hong Kong Time", "HKT", Offset.FromHours(8)),
@@ -58,7 +66,15 @@ namespace NaturalDateTime
             new Timezone("Pacific Standard Time", "PST", Offset.FromHours(-8)),
             new Timezone("Pacific Time", "PT", "US/Pacific"),
             new Timezone("Pakistan Standard Time", "PKT", Offset.FromHours(5)),
-            new Timezone("Philippine Time", "PHT", Offset.FromHours(8))
+            new Timezone("Papua New Guinea Time", "PGT", Offset.FromHours(10)),
+            new Timezone("Philippine Time", "PHT", Offset.FromHours(8)),
+            new Timezone("Samoa Standard Time", "SST", Offset.FromHours(-11)),
+            new Timezone("South Africa Standard Time", "SAST", Offset.FromHours(2)),
+            new Timezone("Solomon Islands Time", "SBT", Offset.FromHours(11)),
+            new Timezone("Tahiti Time", "TAHT", Offset.FromHours(-10)),
+            new Timezone("Vanuatu Time", "VUT", Offset.FromHours(11)),
+            new Timezone("Western European Time", "WET", Offset.FromHours(0))
+
         };
 
         public static IList<Timezone> GetAllTimezones()
