@@ -8,10 +8,22 @@ namespace NaturalDateTime
     {
 		public void TokenizeTheQuestion(Question question)
         {
-			question.AddTokens(GetDayMonthYearFormattedDates(question));
-			question.AddTokens(GetMonthDayYearFormattedDates(question));
-			question.AddTokens(GetHyphenAndSlashFormattedDates(question));
-			question.AddTokens(GetYearOnlyDates(question));
+            var dayMonthYearTokens = GetDayMonthYearFormattedDates(question);
+            question.AddTokens(dayMonthYearTokens);
+            if (dayMonthYearTokens.Count == 0)
+            {
+                var monthDayYearTokens = GetMonthDayYearFormattedDates(question);
+                question.AddTokens(monthDayYearTokens);
+                if (monthDayYearTokens.Count == 0)
+                {
+                    var hyphenAndSlashTokens = GetHyphenAndSlashFormattedDates(question);
+                    question.AddTokens(hyphenAndSlashTokens);
+                    if (hyphenAndSlashTokens.Count == 0)
+                    {
+                        question.AddTokens(GetYearOnlyDates(question));
+                    }
+                }
+            }
         }
 
         private IList<Token> GetYearOnlyDates(Question question)
