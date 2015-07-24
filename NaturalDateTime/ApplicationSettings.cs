@@ -8,15 +8,11 @@ namespace NaturalDateTime
 		public static string FullPathToCityIndex { get; set; } 
 		public static DirectoryInfo CityIndexDirectory { get; set; }
 		public static DirectoryInfo GeonameDataFilesDirectory { get; set; }
-		public static string AnswerLogConnectionString { get; set; }
-		public static string FullPathToAnswerLogDatabase { get; set; }
 
 		public static void Initialise(string fullPathToCityIndex, string fullPathToAnswerLogDatabase){
 			FullPathToCityIndex = fullPathToCityIndex;
 			CityIndexDirectory = new DirectoryInfo(fullPathToCityIndex);
 			GeonameDataFilesDirectory = new DirectoryInfo(Path.Combine(fullPathToCityIndex, "GeonameDataFiles"));
-			AnswerLogConnectionString = "Data Source=" + fullPathToAnswerLogDatabase;
-			FullPathToAnswerLogDatabase = fullPathToAnswerLogDatabase;
 		}
 	}
 }
