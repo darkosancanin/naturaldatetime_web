@@ -6,7 +6,7 @@ using NodaTime;
 
 namespace NaturalDateTime
 {
-    public class DaylightSavingInfo
+    public class DaylightSavingInformation
     {
         public LocalDateTime Start { get; set; }
         public LocalDateTime End { get; set; }
@@ -17,9 +17,9 @@ namespace NaturalDateTime
         public int StartDateSavingPutForwardInMilliseconds { get; set; }
         public int EndDateSavingPutBackInMilliseconds { get; set; }
 
-        public static DaylightSavingInfo CreateWithNoDaylightSavings()
+        public static DaylightSavingInformation CreateWithNoDaylightSavings()
         {
-            return new DaylightSavingInfo{NoDaylightSavings = true};
+            return new DaylightSavingInformation{NoDaylightSavings = true};
         }
 
         public bool IsCurrentDaylightSavingInfo

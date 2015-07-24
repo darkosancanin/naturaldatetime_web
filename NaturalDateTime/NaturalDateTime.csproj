@@ -87,7 +87,7 @@
     <Compile Include="QuestionHandlers\WhenDaylightSavingsStartStopInCityQuestionHandler.cs" />
     <Compile Include="Domain\Answer.cs" />
     <Compile Include="Domain\City.cs" />
-    <Compile Include="Domain\DaylightSavingInfo.cs" />
+    <Compile Include="Domain\DaylightSavingInformation.cs" />
     <Compile Include="Domain\Meridiem.cs" />
     <Compile Include="Domain\Question.cs" />
     <Compile Include="Tokens\DaylightSavingsToken.cs" />

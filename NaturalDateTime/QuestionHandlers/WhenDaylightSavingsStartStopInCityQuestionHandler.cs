@@ -19,13 +19,13 @@ namespace NaturalDateTime
             var dateToken = question.GetToken<DateToken>();
             int? year = null;
             if (dateToken != null) year = dateToken.Year;
-            DaylightSavingInfo daylightSavingInfo;
+            DaylightSavingInformation daylightSavingInfo;
             if (year.HasValue)
             {
                 var firstDateInTheYear = new LocalDateTime(year.Value, 1, 1, 0, 0).InZone(DateTimeZoneProviders.Tzdb[cityToken.City.Timezone], Resolvers.LenientResolver);
                 var firstZoneIntervalInTheYear = firstDateInTheYear.GetZoneInterval();
                 if (firstZoneIntervalInTheYear.IsoLocalEnd.Year > 10000) {
-                    daylightSavingInfo = DaylightSavingInfo.CreateWithNoDaylightSavings();
+                    daylightSavingInfo = DaylightSavingInformation.CreateWithNoDaylightSavings();
                 }
                 else
                 {
@@ -41,7 +41,7 @@ namespace NaturalDateTime
             return new Answer(question, true, true, answerText);
 		}
 
-        public string GetFormattedDaylightSavingInfo(DaylightSavingInfo daylightSavingInfo, City city)
+        public string GetFormattedDaylightSavingInfo(DaylightSavingInformation daylightSavingInfo, City city)
         {
             var formattedText = new StringBuilder();
             if (daylightSavingInfo.NoDaylightSavings)
@@ -112,11 +112,11 @@ namespace NaturalDateTime
             return formattedText.ToString();
         }
 
-        private DaylightSavingInfo GetDaylightSavingInfo(ZonedDateTime zonedDateTime)
+        private DaylightSavingInformation GetDaylightSavingInfo(ZonedDateTime zonedDateTime)
         {
-            if (zonedDateTime.GetZoneInterval().IsoLocalEnd.Year > 10000) return DaylightSavingInfo.CreateWithNoDaylightSavings();
+            if (zonedDateTime.GetZoneInterval().IsoLocalEnd.Year > 10000) return DaylightSavingInformation.CreateWithNoDaylightSavings();
 
-            var daylightSavingInfo = new DaylightSavingInfo { IsInDaylightSavingsTime = zonedDateTime.GetZoneInterval().Savings.Milliseconds > 0 };
+            var daylightSavingInfo = new DaylightSavingInformation { IsInDaylightSavingsTime = zonedDateTime.GetZoneInterval().Savings.Milliseconds > 0 };
 
             if (daylightSavingInfo.IsInDaylightSavingsTime)
             {
