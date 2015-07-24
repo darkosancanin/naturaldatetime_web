@@ -22,6 +22,7 @@ namespace NaturalDateTime
                 Value = Value.TrimStart();
                 StartPosition += 1;
             }
+            Value = Value.Trim(',');
             Value = Value.TrimEnd();
         }
 		

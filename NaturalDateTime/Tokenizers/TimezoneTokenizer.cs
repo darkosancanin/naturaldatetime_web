@@ -21,7 +21,7 @@ namespace NaturalDateTime
             }
                 
             timezoneRegex.Append(")");
-            var matches = Regex.Matches(question.QuestionText, @"(^|\s)" + timezoneRegex.ToString() + @"(\s|$)", RegexOptions.IgnoreCase);
+            var matches = Regex.Matches(question.QuestionText, @"(^|\s)" + timezoneRegex.ToString() + @"(\s|$|,)", RegexOptions.IgnoreCase);
             foreach (Match match in matches)
             {
                 Group group = match.Groups[0];
