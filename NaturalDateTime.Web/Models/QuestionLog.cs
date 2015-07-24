@@ -2,6 +2,7 @@ using System;
 using NodaTime;
 using System.Globalization;
 using System.ComponentModel.DataAnnotations.Schema;
+using NodaTime.TimeZones;
 
 namespace NaturalDateTime.Web.Models
 {
@@ -39,9 +40,8 @@ namespace NaturalDateTime.Web.Models
         {
             get
             {
-                var sydneyTime = SystemClock.Instance.Now.InZone(DateTimeZoneProviders.Tzdb["Australia/Sydney"]);
+                var sydneyTime = DateTimeZoneProviders.Tzdb["UTC"].ResolveLocal(LocalDateTime.FromDateTime(UtcTime), Resolvers.LenientResolver).ToInstant().InZone(DateTimeZoneProviders.Tzdb["Australia/Sydney"]);
                 return sydneyTime.LocalDateTime.ToString("ddd, dd MMM yyyy h:mm:ss tt", CultureInfo.InvariantCulture).ToString();
-
             }
         }
     }
