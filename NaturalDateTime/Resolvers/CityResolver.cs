@@ -7,6 +7,7 @@ using Lucene.Net.QueryParsers;
 using Lucene.Net.Search;
 using Lucene.Net.Search.Spans;
 using Lucene.Net.Store;
+using NaturalDateTime.Domain;
 
 namespace NaturalDateTime
 {
@@ -24,7 +25,7 @@ namespace NaturalDateTime
                 var topScoreDocCollector = TopFieldCollector.Create(sort, 1, true, false, false, false);
 				var countryCode = string.Empty;
 				if(!string.IsNullOrEmpty(possibleCityDetail.CountryName)){
-					countryCode = CountryCodeLookup.LookupCountryCode(possibleCityDetail.CountryName);
+					countryCode = CountryCodes.LookupCountryCode(possibleCityDetail.CountryName);
 					if(string.IsNullOrEmpty(countryCode)) continue;
 				}
                 var queryText = GetQueryText(possibleCityDetail.CityName, countryCode, possibleCityDetail.AdministrativeDivisionName);

@@ -55,13 +55,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Domain\CountryCodes.cs" />
     <Compile Include="Domain\DebugInformation.cs" />
     <Compile Include="Domain\Timezones.cs" />
     <Compile Include="Exceptions\InvalidTokenValueException.cs" />
     <Compile Include="Extensions\OffsetDateTimeExtensions.cs" />
     <Compile Include="QuestionHandlers\NoTokensHandler.cs" />
     <Compile Include="QuestionHandlers\WhatTimeInCityWhenTimeInAnotherCityQuestionHandler.cs" />
-    <Compile Include="Resolvers\CountryCodeLookup.cs" />
     <Compile Include="QuestionHandlers\IQuestionHandler.cs" />
     <Compile Include="QuestionHandlers\QuestionHandlerResolver.cs" />
     <Compile Include="QuestionHandlers\WhatTimeInCityQuestionHandler.cs" />
