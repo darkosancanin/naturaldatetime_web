@@ -1,4 +1,4 @@
-using NaturalDateTime.Extensions;
+using NaturalDateTime.Exceptions;
 using NodaTime;
 using NodaTime.TimeZones;
 using System;
@@ -41,7 +41,7 @@ namespace NaturalDateTime
 
         private Answer GetAnswerToTimeConversionQuestion(Question question, DateToken knownDateToken, TimeToken knownTimeToken, CityOrTimezoneToken  knownCityOrTimezone, CityOrTimezoneToken  unknownCityOrTimezone)
 		{
-            var knownEntityOffsetDateTime = OffsetDateTimeExtensions.CreateUpdatedOffsetDateTimeFromTokens(knownCityOrTimezone.GetCurrentTimeAsOffsetDateTime(), knownDateToken, knownTimeToken);
+            var knownEntityOffsetDateTime = CreateUpdatedOffsetDateTimeFromTokens(knownCityOrTimezone.GetCurrentTimeAsOffsetDateTime(), knownDateToken, knownTimeToken);
             Instant knownCityOrTimezoneInstant;
             String note = null;
             if (knownCityOrTimezone.GetType() == typeof(CityToken))
@@ -88,5 +88,37 @@ namespace NaturalDateTime
             return answer;
 
 		}
-	}
+
+        private OffsetDateTime CreateUpdatedOffsetDateTimeFromTokens(OffsetDateTime existingOffsetDateTime, DateToken dateToken, TimeToken timeToken)
+        {
+            var existingLocalDateTime = existingOffsetDateTime.LocalDateTime;
+            var day = existingLocalDateTime.Day;
+            var month = existingLocalDateTime.Month;
+            var year = existingLocalDateTime.Year;
+            if (dateToken != null)
+            {
+                if (dateToken.Day.HasValue) day = dateToken.Day.Value;
+                if (dateToken.Month.HasValue) month = dateToken.Month.Value;
+                if (dateToken.Year.HasValue) year = dateToken.Year.Value;
+            }
+            var hour = 12;
+            var minute = 0;
+            if (timeToken != null)
+            {
+                hour = timeToken.Hour;
+                if (timeToken.Meridiem == Meridiem.AM && hour == 12) hour = 0;
+                if (timeToken.Meridiem == Meridiem.PM && hour < 12) hour += 12;
+                minute = timeToken.Minute ?? 0;
+            }
+
+            try
+            {
+                return new LocalDateTime(year, month, day, hour, minute).WithOffset(existingOffsetDateTime.Offset);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                throw new InvalidTokenValueException(ErrorMessages.InvalidDateTime);
+            }
+        }
+    }
 }
