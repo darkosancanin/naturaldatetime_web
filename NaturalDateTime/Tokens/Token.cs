@@ -11,6 +11,7 @@ namespace NaturalDateTime
 
         public int StartPosition { get; set; }
 
+        // Priority determines whether a token should be added if it overlaps with a existing token. E.g. the tokenization of the phrase 'eastern time' as a TimezoneToken should take precedence over the tokenization using the LiteralDateOrTimeToken of the word 'time' in that phrase.
         public abstract int Priority { get; }
 
         public Token(string value, int startPosition)
