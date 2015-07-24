@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="QuestionHandlers\WhatTimeInCityWhenTimeInAnotherCityQuestionHandler_Test.cs" />
     <Compile Include="QuestionHandlers\WhatTimeInCityQuestionHandler_Test.cs" />
     <Compile Include="Tokenizers\TimezoneTokenizer_Test.cs" />
     <Compile Include="Tokens\CityToken_Test.cs" />

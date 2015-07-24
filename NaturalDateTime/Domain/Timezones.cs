@@ -84,7 +84,7 @@ namespace NaturalDateTime
 
         public static Timezone GetTimezoneByTokenValue(string value)
         {
-            return GetAllTimezones().Where(x => x.Name.ToLower() == value.ToLower() || x.Abbreviation.ToLower() == value.ToLower()).First();
+            return GetAllTimezones().Where(x => x.Name.ToLower() == value.ToLower() || x.Abbreviation.ToLower() == value.ToLower()).Single();
         }
     }
 

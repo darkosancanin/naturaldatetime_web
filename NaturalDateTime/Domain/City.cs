@@ -97,7 +97,7 @@ namespace NaturalDateTime
             var possibleCityDetails = cityToken.GetPotentialCityDetails();
             foreach (var possibleCityDetail in possibleCityDetails)
             {
-                var topScoreDocCollector = TopFieldCollector.Create(sort, 1, true, false, false, false);
+                var topScoreDocCollector = TopFieldCollector.Create(sort, 5, true, false, false, false);
                 var countryCode = string.Empty;
                 if (!string.IsNullOrEmpty(possibleCityDetail.CountryName))
                 {
@@ -112,10 +112,23 @@ namespace NaturalDateTime
 
                 if (topScoreDocCollector.TotalHits > 0)
                 {
-                    var docId = results[0].Doc;
-                    var document = searcher.Doc(docId);
-                    var city = new City(document);
-                    return city;
+                    var cityName = possibleCityDetail.CityName.ToLower();
+                    foreach (var result in results)
+                    {
+                        var resultDocId = result.Doc;
+                        var resultDocument = searcher.Doc(resultDocId);
+                        var name = resultDocument.Get(CityFieldNames.Name);
+                        if (!string.IsNullOrEmpty(name)) name = name.ToLower();
+                        var asciiName = resultDocument.Get(CityFieldNames.AsciiName);
+                        if (!string.IsNullOrEmpty(asciiName)) asciiName = asciiName.ToLower();
+                        if (name == cityName || asciiName == cityName)
+                            return new City(resultDocument);
+                    }
+
+                    // if no cities matched the name exactly then just return the first document
+                    var firstDocId = results[0].Doc;
+                    var firstDocument = searcher.Doc(firstDocId);
+                    return new City(firstDocument);
                 }
             }
 
