@@ -18,15 +18,6 @@ namespace NaturalDateTime
 			AnswerLogConnectionString = "Data Source=" + fullPathToAnswerLogDatabase;
 			FullPathToAnswerLogDatabase = fullPathToAnswerLogDatabase;
 		}
-		
-		public static string WebClientName {
-			get { return "web"; }	
-		}
-		
-		public static string WebApplicationVersion
-        {
-			get { return "2.0"; }	
-		}
 	}
 }
 

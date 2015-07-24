@@ -25,8 +25,8 @@ namespace NaturalDateTime.Web.Controllers
                 var userAgent = String.Empty;
                 if (Request.Headers["User-Agent"] != null)
                     userAgent = Request.Headers["User-Agent"].ToString();
-                if (string.IsNullOrEmpty(client)) client = ApplicationSettings.WebClientName;
-                if (string.IsNullOrEmpty(client_version)) client_version = ApplicationSettings.WebApplicationVersion;
+                if (string.IsNullOrEmpty(client)) client = "web";
+                if (string.IsNullOrEmpty(client_version)) client_version = "2.0";
                 var dbContext = new NaturalDateTimeContext();
                 var questionLog = new QuestionLog(answer.Question, answer, DateTime.UtcNow, client, client_version, IsBot(userAgent));
                 dbContext.AddQuestionLog(questionLog);
