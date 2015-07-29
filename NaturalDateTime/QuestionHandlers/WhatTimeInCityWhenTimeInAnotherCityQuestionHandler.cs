@@ -14,7 +14,6 @@ namespace NaturalDateTime
 		
 		public Answer GetAnswer(Question question)
 		{
-            question.ResolveTokenValues();
 			if(question.ContainsTokensInFollowingOrder(DateOrTimeToken, CityOrTimezoneToken, CityOrTimezoneToken))
                 return GetAnswerToWhenTimeInKnownCityWhatTimeInUnknownCity(question); 
 		    else

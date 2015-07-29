@@ -26,7 +26,10 @@ namespace NaturalDateTime.Services
             try
             {
                 if (questionHandler != null)
+                {
+                    question.ResolveTokenValues();
                     answer = questionHandler.GetAnswer(question);
+                }
                 else
                     answer = new Answer(question, false, false, ErrorMessages.DidNotUnderstandQuestion);
             }

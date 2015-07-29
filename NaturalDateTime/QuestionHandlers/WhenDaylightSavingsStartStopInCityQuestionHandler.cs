@@ -14,7 +14,6 @@ namespace NaturalDateTime
 		
 		public Answer GetAnswer(Question question)
 		{
-            question.ResolveTokenValues();
             var cityToken = question.GetToken<CityToken>();
             var dateToken = question.GetToken<DateToken>();
             int? year = null;

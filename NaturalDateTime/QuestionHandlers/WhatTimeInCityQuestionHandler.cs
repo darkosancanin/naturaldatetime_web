@@ -12,7 +12,6 @@ namespace NaturalDateTime
 		
 		public Answer GetAnswer(Question question)
 		{
-            question.ResolveTokenValues();
 			return GetAnswerToWhatTimeInCity(question);
 		}
 
