@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Lucene.Net.Documents;
 using Lucene.Net.Index;
 using Lucene.Net.QueryParsers;
@@ -112,20 +113,26 @@ namespace NaturalDateTime
 
                 if (topScoreDocCollector.TotalHits > 0)
                 {
-                    var cityName = possibleCityDetail.CityName.ToLower();
-                    foreach (var result in results)
+                    var possibleName = possibleCityDetail.CityName.ToLower();
+                    var cities = results.Select(x => new City(searcher.Doc(x.Doc))).ToList();
+
+                    // if the name being searched for matches a country return it
+                    foreach (var city in cities)
                     {
-                        var resultDocId = result.Doc;
-                        var resultDocument = searcher.Doc(resultDocId);
-                        var name = resultDocument.Get(CityFieldNames.Name);
-                        if (!string.IsNullOrEmpty(name)) name = name.ToLower();
-                        var asciiName = resultDocument.Get(CityFieldNames.AsciiName);
-                        if (!string.IsNullOrEmpty(asciiName)) asciiName = asciiName.ToLower();
-                        if (name == cityName || asciiName == cityName)
-                            return new City(resultDocument);
+                        if (city.CountryName.ToLower() == possibleName)
+                            return city;
                     }
 
-                    // if no cities matched the name exactly then just return the first document
+                    // if the name matches then return it first
+                    foreach (var city in cities)
+                    {
+                        var asciiName = city.AsciiName;
+                        if (!string.IsNullOrEmpty(asciiName)) asciiName = asciiName.ToLower();
+                        if (city.Name.ToLower() == possibleName || asciiName == possibleName)
+                            return city;
+                    }
+
+                    // if there were no direct city name or country name matches then just return the first result (which by default is sorted by population)
                     var firstDocId = results[0].Doc;
                     var firstDocument = searcher.Doc(firstDocId);
                     return new City(firstDocument);
