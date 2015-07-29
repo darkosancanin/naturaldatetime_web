@@ -16,7 +16,10 @@ namespace NaturalDateTime
             {
                 if (!isFirstIteration)
                     timezoneRegex.Append("|");
-                timezoneRegex.Append(String.Format("{0}|{1}", timezone.Name, timezone.Abbreviation));
+                if(timezone.TokenizeOnAbbreviation)
+                    timezoneRegex.Append(String.Format("{0}|{1}", timezone.Name, timezone.Abbreviation));
+                else
+                    timezoneRegex.Append(timezone.Name);
                 isFirstIteration = false;
             }
                 
