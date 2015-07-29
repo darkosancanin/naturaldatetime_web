@@ -10,7 +10,7 @@ namespace NaturalDateTime.Tests
     public class TimeTokenizer_Test
     {
         [Test]
-        public void TimeTokenizer_should_find_all_occurrences()
+        public void TimeTokenizer_should_find_all_occurrences_of_known_formats()
         {
 			var question = new Question("when its 7am in Sydney");
             var token = question.GetToken<TimeToken>();
@@ -39,8 +39,22 @@ namespace NaturalDateTime.Tests
 			Assert.AreEqual (7, token.Hour);
 			Assert.AreEqual (null, token.Minute);
 			Assert.AreEqual (Meridiem.PM, token.Meridiem);
-			
-			question = new Question("when its 7 in Sydney");
+
+            question = new Question("when its 7 p.m in Sydney");
+            token = question.GetToken<TimeToken>();
+            Assert.AreEqual("7 p.m", token.Value);
+            Assert.AreEqual(7, token.Hour);
+            Assert.AreEqual(null, token.Minute);
+            Assert.AreEqual(Meridiem.PM, token.Meridiem);
+
+            question = new Question("when its 7 a.m in Sydney");
+            token = question.GetToken<TimeToken>();
+            Assert.AreEqual("7 a.m", token.Value);
+            Assert.AreEqual(7, token.Hour);
+            Assert.AreEqual(null, token.Minute);
+            Assert.AreEqual(Meridiem.AM, token.Meridiem);
+
+            question = new Question("when its 7 in Sydney");
             token = question.GetToken<TimeToken>();
 			Assert.AreEqual("7", token.Value);
 			Assert.AreEqual (7, token.Hour);
@@ -77,6 +91,59 @@ namespace NaturalDateTime.Tests
 			
 			question = new Question("on the 24th of April 2012");
 			Assert.IsNull (question.GetToken<TimeToken>());
+        }
+
+        [Test]
+        public void TimeTokenizer_should_find_all_occurrences_of_abbreviations()
+        {
+            var question = new Question("when its noon in Sydney");
+            var token = question.GetToken<TimeToken>();
+            Assert.AreEqual("noon", token.Value);
+            Assert.AreEqual(12, token.Hour);
+            Assert.AreEqual(null, token.Minute);
+            Assert.AreEqual(Meridiem.PM, token.Meridiem);
+
+            question = new Question("when its midday in Sydney");
+            token = question.GetToken<TimeToken>();
+            Assert.AreEqual("midday", token.Value);
+            Assert.AreEqual(12, token.Hour);
+            Assert.AreEqual(null, token.Minute);
+            Assert.AreEqual(Meridiem.PM, token.Meridiem);
+
+            question = new Question("when its mid-day  in Sydney");
+            token = question.GetToken<TimeToken>();
+            Assert.AreEqual("mid-day", token.Value);
+            Assert.AreEqual(12, token.Hour);
+            Assert.AreEqual(null, token.Minute);
+            Assert.AreEqual(Meridiem.PM, token.Meridiem);
+
+            question = new Question("when its mid day in Sydney");
+            token = question.GetToken<TimeToken>();
+            Assert.AreEqual("mid day", token.Value);
+            Assert.AreEqual(12, token.Hour);
+            Assert.AreEqual(null, token.Minute);
+            Assert.AreEqual(Meridiem.PM, token.Meridiem);
+
+            question = new Question("when its midnight in Sydney");
+            token = question.GetToken<TimeToken>();
+            Assert.AreEqual("midnight", token.Value);
+            Assert.AreEqual(12, token.Hour);
+            Assert.AreEqual(null, token.Minute);
+            Assert.AreEqual(Meridiem.AM, token.Meridiem);
+
+            question = new Question("when its mid-night  in Sydney");
+            token = question.GetToken<TimeToken>();
+            Assert.AreEqual("mid-night", token.Value);
+            Assert.AreEqual(12, token.Hour);
+            Assert.AreEqual(null, token.Minute);
+            Assert.AreEqual(Meridiem.AM, token.Meridiem);
+
+            question = new Question("when its mid night in Sydney");
+            token = question.GetToken<TimeToken>();
+            Assert.AreEqual("mid night", token.Value);
+            Assert.AreEqual(12, token.Hour);
+            Assert.AreEqual(null, token.Minute);
+            Assert.AreEqual(Meridiem.AM, token.Meridiem);
         }
     }
 }
