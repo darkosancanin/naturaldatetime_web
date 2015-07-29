@@ -23,6 +23,14 @@ namespace NaturalDateTime
 			return formattedTime;
 		}
 
+        public static string GetFormattedTime(this NodaTime.LocalDateTime localDateTime)
+        {
+            var timeFormat = "h:mmtt";
+            var minute = localDateTime.ToString("mm", CultureInfo.InvariantCulture);
+            if (minute == "00") timeFormat = "htt";
+            return localDateTime.ToString(timeFormat, CultureInfo.InvariantCulture).ToLower();
+        }
+
         public static string GetFormattedDateAndTime(this NodaTime.LocalDateTime localDateTime)
         {
             var timeFormat = "h:mmtt";
