@@ -85,15 +85,11 @@ namespace NaturalDateTime
 		public string FormatTextWithTokens()
         {
             var formattedText = QuestionText;
-			var currentOffset = 0;
-            foreach (Token token in _tokens)
+            var orderedTokens = _tokens.OrderByDescending(x => x.StartPosition).ToList();
+            foreach (Token token in orderedTokens)
             {
-                var startTag = token.FormattedStartTag;
-                var endTag = token.FormattedEndTag;
-                formattedText = formattedText.Insert(QuestionText.IndexOf(token.Value) + currentOffset, startTag);
-                currentOffset += startTag.Length;
-                formattedText = formattedText.Insert(QuestionText.IndexOf(token.Value) + token.LengthOfMatch + currentOffset, endTag);
-                currentOffset += endTag.Length;
+                formattedText = formattedText.Insert(token.FinishPosition, token.FormattedEndTag);
+                formattedText = formattedText.Insert(token.StartPosition, token.FormattedStartTag);
             }
             return formattedText;
         }
