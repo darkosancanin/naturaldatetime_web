@@ -6,6 +6,7 @@ using Lucene.Net.QueryParsers;
 using Lucene.Net.Search;
 using Lucene.Net.Search.Spans;
 using Lucene.Net.Store;
+using System.Globalization;
 
 namespace NaturalDateTime
 {
@@ -119,16 +120,17 @@ namespace NaturalDateTime
                     // if the name being searched for matches a country return it
                     foreach (var city in cities)
                     {
-                        if (city.CountryName.ToLower() == possibleName)
+                        var countryNameMatches = String.Compare(possibleName, city.CountryName, CultureInfo.InvariantCulture, CompareOptions.IgnoreNonSpace | CompareOptions.IgnoreCase) == 0;
+                        if (countryNameMatches)
                             return city;
                     }
 
                     // if the name matches then return it first
                     foreach (var city in cities)
                     {
-                        var asciiName = city.AsciiName;
-                        if (!string.IsNullOrEmpty(asciiName)) asciiName = asciiName.ToLower();
-                        if (city.Name.ToLower() == possibleName || asciiName == possibleName)
+                        var cityNameMatches = String.Compare(possibleName, city.Name, CultureInfo.InvariantCulture, CompareOptions.IgnoreNonSpace | CompareOptions.IgnoreCase) == 0;
+                        var asciiNameMatches = String.Compare(possibleName, city.AsciiName, CultureInfo.InvariantCulture, CompareOptions.IgnoreNonSpace | CompareOptions.IgnoreCase) == 0;
+                        if (cityNameMatches || asciiNameMatches)
                             return city;
                     }
 
