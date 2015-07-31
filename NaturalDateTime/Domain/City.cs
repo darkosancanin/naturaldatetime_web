@@ -95,7 +95,7 @@ namespace NaturalDateTime
             var searcher = new IndexSearcher(FSDirectory.Open(ApplicationSettings.CityIndexDirectory), true);
             var sort = new Sort(new[] { new SortField(CityFieldNames.Population, SortField.LONG, true), SortField.FIELD_SCORE });
 
-            var possibleCityDetails = cityToken.GetPotentialCityDetails();
+            var possibleCityDetails = cityToken.GetPossibleCityDetails();
             foreach (var possibleCityDetail in possibleCityDetails)
             {
                 var topScoreDocCollector = TopFieldCollector.Create(sort, 5, true, false, false, false);

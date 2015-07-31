@@ -52,9 +52,9 @@ namespace NaturalDateTime
                 throw new InvalidTokenValueException(ErrorMessages.NoTimezone);
         }
 
-        public IList<CityTokenPotentialDetails> GetPotentialCityDetails()
+        public IList<CityTokenPossibleCityDetails> GetPossibleCityDetails()
         {
-            var cityDetails = new List<CityTokenPotentialDetails>();
+            var cityDetails = new List<CityTokenPossibleCityDetails>();
 			Value = Value.Replace(".", " ");
 			var positionOfFirstComma = Value.IndexOf(',');
             if(positionOfFirstComma > 0)
@@ -75,26 +75,26 @@ namespace NaturalDateTime
 				}
 
 				if(!String.IsNullOrEmpty(thirdValue)){
-					cityDetails.Add(new CityTokenPotentialDetails(firstValue, thirdValue) { AdministrativeDivisionName = secondValue });
+					cityDetails.Add(new CityTokenPossibleCityDetails(firstValue, thirdValue) { AdministrativeDivisionName = secondValue });
 				}
 				else if(!String.IsNullOrEmpty(secondValue)){
-					cityDetails.Add(new CityTokenPotentialDetails(firstValue, secondValue));
-					cityDetails.Add(new CityTokenPotentialDetails(firstValue) { AdministrativeDivisionName = secondValue });
+					cityDetails.Add(new CityTokenPossibleCityDetails(firstValue, secondValue));
+					cityDetails.Add(new CityTokenPossibleCityDetails(firstValue) { AdministrativeDivisionName = secondValue });
 				}
 				else{
-					cityDetails.Add(new CityTokenPotentialDetails(firstValue));
+					cityDetails.Add(new CityTokenPossibleCityDetails(firstValue));
 				}
             }
             else
             {
-                cityDetails.Add(new CityTokenPotentialDetails(Value));
+                cityDetails.Add(new CityTokenPossibleCityDetails(Value));
                 var firstOccurenceOfSpace = Value.IndexOf(' ');
                 if(firstOccurenceOfSpace > 0)
                 {
                     var cityName = Value.Substring(0, firstOccurenceOfSpace).Trim();
                     var countryOrAdministrativeDivision = Value.Substring(cityName.Length + 1).Trim();
-                    cityDetails.Add(new CityTokenPotentialDetails(cityName, countryOrAdministrativeDivision));
-					cityDetails.Add(new CityTokenPotentialDetails(cityName) { AdministrativeDivisionName = countryOrAdministrativeDivision });
+                    cityDetails.Add(new CityTokenPossibleCityDetails(cityName, countryOrAdministrativeDivision));
+					cityDetails.Add(new CityTokenPossibleCityDetails(cityName) { AdministrativeDivisionName = countryOrAdministrativeDivision });
                 }
 
                 var secondOccurenceOfSpace = Value.IndexOf(' ', firstOccurenceOfSpace + 1);
@@ -102,8 +102,8 @@ namespace NaturalDateTime
                 {
                     var cityName = Value.Substring(0, secondOccurenceOfSpace).Trim();
                     var countryOrAdministrativeDivision = Value.Substring(cityName.Length + 1).Trim();
-                    cityDetails.Add(new CityTokenPotentialDetails(cityName, countryOrAdministrativeDivision));
-					cityDetails.Add(new CityTokenPotentialDetails(cityName) { AdministrativeDivisionName = countryOrAdministrativeDivision });
+                    cityDetails.Add(new CityTokenPossibleCityDetails(cityName, countryOrAdministrativeDivision));
+					cityDetails.Add(new CityTokenPossibleCityDetails(cityName) { AdministrativeDivisionName = countryOrAdministrativeDivision });
                 }
             }
 
@@ -111,18 +111,18 @@ namespace NaturalDateTime
         } 
     }
 
-    public class CityTokenPotentialDetails
+    public class CityTokenPossibleCityDetails
     {
         public string CityName { get; set; }
         public string CountryName { get; set; }
 		public string AdministrativeDivisionName { get; set; }
 
-        public CityTokenPotentialDetails(string cityName)
+        public CityTokenPossibleCityDetails(string cityName)
         {
             CityName = cityName.Trim();
         }
 		
-		public CityTokenPotentialDetails(string cityName, string countryName)
+		public CityTokenPossibleCityDetails(string cityName, string countryName)
         {
             CityName = cityName;
             CountryName = countryName;
