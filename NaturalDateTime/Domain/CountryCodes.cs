@@ -49,7 +49,6 @@ namespace NaturalDateTime
             _countryCodeLookup.Add("britain", "GB");
             _countryCodeLookup.Add("england", "GB");
             _countryCodeLookup.Add("u.k", "GB");
-
             _countryCodeLookup.Add("andorra", "AD");
             _countryCodeLookup.Add("united arab emirates", "AE");
             _countryCodeLookup.Add("afghanistan", "AF");

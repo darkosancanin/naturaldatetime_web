@@ -114,13 +114,12 @@ namespace NaturalDateTime
 
                 if (topScoreDocCollector.TotalHits > 0)
                 {
-                    var possibleName = possibleCityDetail.CityName.ToLower();
                     var cities = results.Select(x => new City(searcher.Doc(x.Doc))).ToList();
 
                     // if the name being searched for matches a country return it
                     foreach (var city in cities)
                     {
-                        var countryNameMatches = String.Compare(possibleName, city.CountryName, CultureInfo.InvariantCulture, CompareOptions.IgnoreNonSpace | CompareOptions.IgnoreCase) == 0;
+                        var countryNameMatches = String.Compare(possibleCityDetail.CityName, city.CountryName, CultureInfo.InvariantCulture, CompareOptions.IgnoreNonSpace | CompareOptions.IgnoreCase) == 0;
                         if (countryNameMatches)
                             return city;
                     }
@@ -128,9 +127,10 @@ namespace NaturalDateTime
                     // if the name matches then return it first
                     foreach (var city in cities)
                     {
-                        var cityNameMatches = String.Compare(possibleName, city.Name, CultureInfo.InvariantCulture, CompareOptions.IgnoreNonSpace | CompareOptions.IgnoreCase) == 0;
-                        var asciiNameMatches = String.Compare(possibleName, city.AsciiName, CultureInfo.InvariantCulture, CompareOptions.IgnoreNonSpace | CompareOptions.IgnoreCase) == 0;
-                        if (cityNameMatches || asciiNameMatches)
+                        var cityNameMatches = String.Compare(possibleCityDetail.CityName, city.Name, CultureInfo.InvariantCulture, CompareOptions.IgnoreNonSpace | CompareOptions.IgnoreCase) == 0;
+                        var asciiNameMatches = String.Compare(possibleCityDetail.CityName, city.AsciiName, CultureInfo.InvariantCulture, CompareOptions.IgnoreNonSpace | CompareOptions.IgnoreCase) == 0;
+                        var countryNameMatches = String.IsNullOrEmpty(possibleCityDetail.CountryName) || String.Compare(possibleCityDetail.CountryName, city.CountryName, CultureInfo.InvariantCulture, CompareOptions.IgnoreNonSpace | CompareOptions.IgnoreCase) == 0;
+                        if ((cityNameMatches || asciiNameMatches) && countryNameMatches)
                             return city;
                     }
 
