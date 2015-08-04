@@ -9,6 +9,7 @@ I wrote the application back in 2012, but just recently updated the web site and
 Android - https://github.com/darkosancanin/naturaldatetime_android  
 iPhone - https://github.com/darkosancanin/naturaldatetime_iphone  
 Chrome Extension - https://github.com/darkosancanin/naturaldatetime_chrome_extension  
+Mac OS X - https://github.com/darkosancanin/naturaldatetime_osx  
 
 ## Example Questions
 ######Current time in a city
