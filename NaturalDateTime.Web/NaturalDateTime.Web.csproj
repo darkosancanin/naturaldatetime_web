@@ -167,6 +167,7 @@
     <Content Include="Content\Images\iphone_icon.png" />
     <Content Include="Content\Images\loading.gif" />
     <Content Include="Content\Images\NaturalDateTime.png" />
+    <Content Include="Content\Images\osx_icon.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\app\admin\latestQuestionLogsController.js" />
@@ -218,6 +219,7 @@
     <Content Include="Views\Admin\QuestionLogs.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Content\app\NaturalDateAndTimeInstaller.dmg" />
     <None Include="Properties\PublishProfiles\NaturalDateTime.Web - FileSystem - Home.pubxml" />
     <Content Include="Views\Admin\LatestQuestionLogs.cshtml" />
     <Content Include="Views\Apps\Index.cshtml" />
